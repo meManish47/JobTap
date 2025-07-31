@@ -1,7 +1,14 @@
+//@ts-nocheck
 import { ModeToggle } from "./util-components/mode-toggle";
 import JobSearchBar from "@/components/jobComponents/jobSearchBar";
 import PaginationComponent from "@/components/jobComponents/pagination";
-export default async function Home() {
+import { Suspense } from "react";
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { q: string };
+}) {
+  const searchVal = searchParams.q;
   return (
     <main className="h-full w-screen flex flex-col ">
       <div className="p-2 w-full flex self-end justify-between px-6 pt-4">
@@ -14,7 +21,7 @@ export default async function Home() {
         </h1>
       </div>
       <div>
-        <PaginationComponent />
+        <PaginationComponent search={searchVal} />
       </div>
     </main>
   );

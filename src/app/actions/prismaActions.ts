@@ -56,9 +56,13 @@ export async function addJobsFromApiIntoDb(data) {
   }
 }
 
-export async function getAllJobsFromDb() {
+export async function getAllJobsFromDb(searchVal: string) {
   try {
-    const jobs = await prismaClient.jobs.findMany();
+    const jobs = await prismaClient.jobs.findMany({
+      where: {
+        job_title: { contains: searchVal, mode: "insensitive" },
+      },
+    });
     return {
       success: true,
       jobs,
