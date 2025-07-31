@@ -1,6 +1,6 @@
-export async function   getJobs() {
+export async function getJobs() {
   const url =
-    "https://jsearch.p.rapidapi.com/search?query=developer%20jobs%20in%20chicago&page=1&num_pages=1&country=us&date_posted=all";
+    "https://jsearch.p.rapidapi.com/search?query=developer%20jobs%20in%20chicago&page=12&num_pages=10&country=us&date_posted=all";
   const options = {
     method: "GET",
     headers: {

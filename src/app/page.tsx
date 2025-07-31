@@ -1,15 +1,9 @@
-import { Input } from "@/components/ui/input";
-import { getJobs } from "./actions/actions";
 import { ModeToggle } from "./util-components/mode-toggle";
-import JobCard from "@/components/jobComponents/jobcard";
-import { Button } from "@/components/ui/button";
 import JobSearchBar from "@/components/jobComponents/jobSearchBar";
+import PaginationComponent from "@/components/jobComponents/pagination";
 export default async function Home() {
-  const jobs = await getJobs();
-  const jobsArray = jobs;
-  console.log(jobsArray?.length);
   return (
-    <main className="h-screen w-screen flex flex-col ">
+    <main className="h-full w-screen flex flex-col ">
       <div className="p-2 w-full flex self-end justify-between px-6 pt-4">
         <ModeToggle />
         <JobSearchBar />
@@ -19,14 +13,8 @@ export default async function Home() {
           JobTap
         </h1>
       </div>
-      <div className="h-full w-screen flex flex-wrap  gap-6 px-4 py-2 mt-4">
-        {jobsArray?.slice(0, 20).map((job) => {
-          return (
-            <div key={job.job_id}>
-              <JobCard job={job} />
-            </div>
-          );
-        })}
+      <div>
+        <PaginationComponent />
       </div>
     </main>
   );

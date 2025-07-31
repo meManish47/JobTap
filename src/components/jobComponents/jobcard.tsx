@@ -13,14 +13,27 @@ import { IoIosArrowForward } from "react-icons/io";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { Button } from "../ui/button";
-export default function JobCard({ job }) {
+type JobType = {
+  job: {
+    job_id: string;
+    job_title: string;
+    job_employment_type: string | null;
+    job_apply_link: string;
+    job_description: string;
+    job_location: string;
+    job_is_remote: boolean;
+    employer_name: string;
+    employer_logo: string | null;
+  };
+};
+export default function JobCard({ job }: JobType) {
   return (
     <Card className="w-70 h-80 hover:scale-103 transition duration-200 flex flex-col  justify-between">
       <CardHeader>
-        <CardTitle className="truncate lg:text-xl sm:text-sm">
+        <CardTitle className=" lg:text-lg/tight line-clamp-2 sm:text-sm">
           {job.job_title}
         </CardTitle>
-        <CardDescription>{job.job_publisher}</CardDescription>
+        {/*  <CardDescription>{job.job_publisher}</CardDescription> */}
         <CardAction>
           <Badge
             variant="secondary"
@@ -30,7 +43,7 @@ export default function JobCard({ job }) {
           </Badge>
         </CardAction>
       </CardHeader>
-      <CardContent className=" line-clamp-7 text-sm italic">
+      <CardContent className=" line-clamp-6 text-sm italic">
         <p>{job.job_description}</p>
       </CardContent>
 
@@ -38,12 +51,14 @@ export default function JobCard({ job }) {
         <Card className="h-10 max-w-45 flex justify-center items-center p-3 bg-gray-200/10">
           <div className="w-full flex gap-1 justify-start items-center">
             <div className="h-6 w-6 rounded-[50%] overflow-hidden">
-              <Image
-                src={job.employer_logo}
-                alt="Logo"
-                height={48}
-                width={48}
-              ></Image>
+              {job.employer_logo && (
+                <Image
+                  src={job.employer_logo}
+                  alt="Logo"
+                  height={48}
+                  width={48}
+                ></Image>
+              )}
             </div>
             <div className="text-muted-foreground truncate text-sm font-semibold">
               {job.employer_name}
