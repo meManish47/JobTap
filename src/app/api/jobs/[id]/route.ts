@@ -1,18 +1,25 @@
-import { getAllJobsFromDb } from "@/app/actions/prismaActions";
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
-  const jobs = await prismaClient.jobs.findMany();
-  if (jobs) {
+  const url = req.nextUrl.pathname;
+  //   console.log("URL", url);
+  const id = url.split("/api/jobs/")[1];
+
+  const job = await prismaClient.jobs.findUnique({
+    where: {
+      id,
+    },
+  });
+  if (job) {
     return NextResponse.json({
       success: true,
-      data: jobs,
+      job,
     });
   } else {
     return NextResponse.json({
       success: false,
-      data: [],
+      job: [],
     });
   }
 }

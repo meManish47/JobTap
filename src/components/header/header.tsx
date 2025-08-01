@@ -1,13 +1,15 @@
 //@ts-nocheck
+"use client";
 import { ModeToggle } from "@/app/util-components/mode-toggle";
 import JobSearchBar from "../jobComponents/jobSearchBar";
 import { Button } from "../ui/button";
 import { FaPlus } from "react-icons/fa";
 import Link from "next/link";
 import { MdLogin } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 export default function HeaderComponent({ fromLogin, user }) {
-  console.log("USER", user);
+  // console.log("USER", user);
   return (
     <div className="p-2 w-full flex self-end justify-between px-6 pt-4">
       <div className="flex gap-2 justify-center items-center">
@@ -24,6 +26,9 @@ export default function HeaderComponent({ fromLogin, user }) {
         )}
         <Link
           href={"/"}
+          onClick={() => {
+            useRouter().refresh();
+          }}
           className="flex flex-wrap items-center gap-2 md:flex-row cursor-pointer "
         >
           <Button className="cursor-pointer" variant={"ghost"}>

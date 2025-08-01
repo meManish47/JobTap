@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
         success: true,
         user,
       });
-      res.cookies.set("token", user?.email);
+      res.cookies.set("token", user?.email || "");
       return res;
     } else {
       return NextResponse.json({

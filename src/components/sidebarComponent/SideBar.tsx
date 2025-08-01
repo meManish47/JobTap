@@ -20,7 +20,7 @@ export default function SideBar() {
   const rem = searchParams.get("rem");
   const router = useRouter();
   const [jobtype, setJobtype] = useState(jt);
-  const [remote, setRemote] = useState(rem || false);
+  const [remote, setRemote] = useState(rem || undefined);
   let url = `/?q=${q}&jt=${jobtype}&rem=${remote}`;
   console.log(url);
   function handleClick() {
@@ -61,7 +61,7 @@ export default function SideBar() {
           {" "}
           <RadioGroup
             className="flex flex-col gap-1"
-            value={remote ? "yes" : "no"} // convert boolean to string
+            value={remote === undefined ? undefined : remote ? "yes" : "no"} // convert boolean to string
             onValueChange={(value) => setRemote(value === "yes")}
           >
             <div className="flex items-center gap-3">

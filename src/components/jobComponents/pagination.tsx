@@ -15,6 +15,8 @@ import {
 import JobCard from "./jobcard";
 import { useEffect, useState } from "react";
 import SideBar from "../sidebarComponent/SideBar";
+import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 export default function PaginationComponent({
   search,
@@ -27,11 +29,16 @@ export default function PaginationComponent({
   const [jobs, setJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
-  const jobsPerPage = 10;
+  const jobsPerPage = 12;
+  const router = useRouter();
   useEffect(() => {
     async function fetchJobs() {
-      const result = await getAllJobsFromDb(searchVal, jobtype, remote);
-      setJobs(result.jobs || []);
+      // const result = await getAllJobsFromDb(searchVal, jobtype, remote);
+      const result = await fetch(
+        `http://localhost:3000/api/jobs/search?q=${searchVal}&jt=${jobtype}&rem=${remote}`
+      );
+      const data = await result.json();
+      setJobs(data.jobs || []);
       setIsLoading(false);
     }
     fetchJobs();
@@ -125,12 +132,21 @@ export default function PaginationComponent({
     return (
       <div className="w-screen h-screen flex justify-center items-center">
         <p className="text-muted-foreground text-lg">No jobs found :/</p>
+        <Button
+          className="cursor-pointer"
+          variant={"link"}
+          onClick={() => {
+            router.push("/?q=");
+          }}
+        >
+          Go back
+        </Button>
       </div>
     );
   }
   return (
     <div className="h-full w-screen flex  items-start gap-6 p-4 mt-4 relative ">
-      {searchVal ? (
+      {true ? (
         <div className="w-80 h-full  sticky top-10">
           <SideBar />
         </div>
