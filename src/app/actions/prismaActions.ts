@@ -74,3 +74,21 @@ export async function getAllJobsFromDb(searchVal: string) {
     };
   }
 }
+
+export async function addJobInDb(data) {
+  try {
+    const job = await prismaClient.jobs.create({
+      data,
+    });
+    if (data) {
+      return {
+        success: true,
+        job: data,
+      };
+    } else {
+      return { success: false, job: {} };
+    }
+  } catch (err) {
+    return { success: false, message: err };
+  }
+}

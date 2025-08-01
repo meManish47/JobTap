@@ -37,7 +37,7 @@ export default function JobCard({ job }: JobType) {
         <CardAction>
           <Badge
             variant="secondary"
-            className="bg-blue-500 text-white dark:bg-blue-600"
+            className="bg-blue-500 text-cyan-300 dark:bg-blue-600 tracking-wide"
           >
             {job.job_employment_type}
           </Badge>

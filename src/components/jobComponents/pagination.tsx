@@ -137,3 +137,6 @@ export default function PaginationComponent({ search }: string) {
     </div>
   );
 }
+
+
+

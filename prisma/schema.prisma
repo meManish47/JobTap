@@ -16,13 +16,14 @@ datasource db {
 
 model jobs {
   id                  String  @id @default(auto()) @map("_id") @db.ObjectId
-  job_id              String
+  job_id              String?
   job_title           String
-  job_employment_type String?
-  job_apply_link      String
+  job_employment_type String? @default("full-time")
+  job_apply_link      String  @default("/")
   job_description     String
   job_location        String
-  job_is_remote       Boolean
+  job_is_remote       Boolean @default(false)
   employer_name       String
   employer_logo       String?
+  job_salary          Int?
 }
