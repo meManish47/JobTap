@@ -56,11 +56,17 @@ export async function addJobsFromApiIntoDb(data) {
   }
 }
 
-export async function getAllJobsFromDb(searchVal: string) {
+export async function getAllJobsFromDb(
+  searchVal: string,
+  jobtype: string,
+  remote: boolean
+) {
   try {
     const jobs = await prismaClient.jobs.findMany({
       where: {
         job_title: { contains: searchVal, mode: "insensitive" },
+         ...(jobtype && { job_employment_type: jobtype }),     // include only if jobtype is provided
+        ...(remote !== undefined && { job_is_remote: remote }) 
       },
     });
     return {

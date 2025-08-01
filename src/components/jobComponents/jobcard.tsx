@@ -25,22 +25,34 @@ type JobType = {
     employer_name: string;
     employer_logo: string | null;
   };
+  search: string;
 };
-export default function JobCard({ job }: JobType) {
+export default function JobCard({ job, search }: JobType) {
   return (
-    <Card className="w-70 h-80 hover:scale-103 transition duration-200 flex flex-col  justify-between">
+    <Card
+      className={
+        search
+          ? `w-full h-80  flex flex-col  justify-between`
+          : `w-70 h-80 hover:scale-103 transition duration-200 flex flex-col  justify-between`
+      }
+    >
       <CardHeader>
         <CardTitle className=" lg:text-lg/tight line-clamp-2 sm:text-sm">
           {job.job_title}
         </CardTitle>
         {/*  <CardDescription>{job.job_publisher}</CardDescription> */}
         <CardAction>
-          <Badge
-            variant="secondary"
-            className="bg-blue-500 text-cyan-300 dark:bg-blue-600 tracking-wide"
-          >
-            {job.job_employment_type}
-          </Badge>
+          <div className="flex flex-col gap-1 items-end">
+            <Badge
+              variant="secondary"
+              className="bg-blue-500 text-cyan-300 dark:bg-blue-600 tracking-wide"
+            >
+              {job.job_employment_type}
+            </Badge>
+            <div className="text-muted-foreground text-xs pr-1">
+              {job.job_is_remote ? "Remote" : "Not Remote"}
+            </div>
+          </div>
         </CardAction>
       </CardHeader>
       <CardContent className=" line-clamp-6 text-sm italic">

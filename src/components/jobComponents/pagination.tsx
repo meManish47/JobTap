@@ -14,22 +14,28 @@ import {
 } from "@/components/ui/pagination";
 import JobCard from "./jobcard";
 import { useEffect, useState } from "react";
+import SideBar from "../sidebarComponent/SideBar";
 
-export default function PaginationComponent({ search }: string) {
-  const searchVal = search;
-  console.log("VLAUE", searchVal);
+export default function PaginationComponent({
+  search,
+}: {
+  search: { searchVal: string; jobtype: string; remote: boolean };
+}) {
+  const searchVal = search.searchVal;
+  const jobtype = search.jobtype;
+  const remote = search.remote;
   const [jobs, setJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
   const jobsPerPage = 10;
   useEffect(() => {
     async function fetchJobs() {
-      const result = await getAllJobsFromDb(searchVal); // this must run in server
+      const result = await getAllJobsFromDb(searchVal, jobtype, remote);
       setJobs(result.jobs || []);
       setIsLoading(false);
     }
     fetchJobs();
-  }, [searchVal]);
+  }, [searchVal, jobtype, remote]);
 
   const totalPages = Math.ceil(jobs.length / jobsPerPage);
   const start = page * jobsPerPage;
@@ -123,20 +129,22 @@ export default function PaginationComponent({ search }: string) {
     );
   }
   return (
-    <div className="h-full w-screen flex flex-col items-center gap-6 p-4 mt-4">
-      <div className="flex flex-wrap justify-center gap-6 w-full">
+    <div className="h-full w-screen flex  items-start gap-6 p-4 mt-4 relative ">
+      {searchVal ? (
+        <div className="w-80 h-full  sticky top-10">
+          <SideBar />
+        </div>
+      ) : null}
+      <div className="flex flex-wrap justify-center gap-6 w-full ">
         {jobsArray.map((job) => (
-          <div key={job.job_id}>
-            <JobCard job={job} />
+          <div key={job.id}>
+            <JobCard job={job} search={searchVal} />
           </div>
         ))}
+        <Pagination>
+          <PaginationContent>{paginationItems}</PaginationContent>
+        </Pagination>
       </div>
-      <Pagination>
-        <PaginationContent>{paginationItems}</PaginationContent>
-      </Pagination>
     </div>
   );
 }
-
-
-

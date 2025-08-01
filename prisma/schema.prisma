@@ -18,7 +18,7 @@ model jobs {
   id                  String  @id @default(auto()) @map("_id") @db.ObjectId
   job_id              String?
   job_title           String
-  job_employment_type String? @default("full-time")
+  job_employment_type String? @default("Full-time")
   job_apply_link      String  @default("/")
   job_description     String
   job_location        String
@@ -26,4 +26,11 @@ model jobs {
   employer_name       String
   employer_logo       String?
   job_salary          Int?
+}
+
+model User {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  email    String @unique
+  password String
+  role     String
 }
