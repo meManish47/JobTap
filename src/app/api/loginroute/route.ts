@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
     } else {
       return NextResponse.json({
         success: false,
-        message: "Not any catch error",
+        message: "Invalid Password",
       });
     }
   } catch (err) {

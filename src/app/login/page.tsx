@@ -14,9 +14,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import HeaderComponent from "@/components/header/header";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
   async function handleClick() {
     const res = await fetch("http://localhost:3000/api/loginroute", {
       method: "POST",
@@ -27,14 +30,15 @@ export default function LoginPage() {
     });
     const data = await res.json();
     if (data?.success) {
-      console.log("Logged in");
+      toast.success("Successfully Logged In!", { duration: 2000 });
+      router.push("/");
     } else {
       alert(data.message);
     }
   }
   return (
     <main className="h-full w-screen flex flex-col ">
-      <HeaderComponent fromLogin={true} />
+      {/* <HeaderComponent fromLogin={true} /> */}
       <div className="h-[20%] w-full flex justify-center items-center  ">
         <h1 className="scroll-m-20 text-center text-5xl font-extrabold tracking-wide text-balance">
           Login
