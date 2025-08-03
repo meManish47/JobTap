@@ -34,3 +34,11 @@ model User {
   password String
   role     String
 }
+
+model company {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  owner_id     String @unique
+  company_name String
+  company_logo String
+  company_desc String
+}

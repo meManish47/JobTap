@@ -1,8 +1,9 @@
+//@ts-nocheck
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
-  console.log(req.nextUrl.pathname);
+  // console.log(req.nextUrl.pathname);
   const searchParams = req.nextUrl.searchParams;
   const q =
     searchParams.get("q") === "undefined" ||
@@ -28,7 +29,7 @@ export async function GET(req: NextRequest) {
       where: {
         job_title: { contains: q, mode: "insensitive" },
         ...(jt !== undefined &&
-          jt !== null &&
+          jt !== "null" &&
           jt !== "undefined" &&
           jt !== "" && { job_employment_type: jt }),
         ...(remote !== undefined && { job_is_remote: remote }),

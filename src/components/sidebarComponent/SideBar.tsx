@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 import {
   Card,
@@ -22,10 +23,11 @@ export default function SideBar() {
   const [jobtype, setJobtype] = useState(jt);
   const [remote, setRemote] = useState(rem || undefined);
   let url = `/?q=${q}&jt=${jobtype}&rem=${remote}`;
-  console.log(url);
+  // console.log(url);
   function handleClick() {
     router.push(url);
   }
+  // console.log("Remote", remote);
   return (
     <Card>
       <CardHeader>
@@ -76,12 +78,23 @@ export default function SideBar() {
         </Card>
       </CardContent>
 
-      <CardFooter>
+      <CardFooter className="flex gap-4">
         <Button
           className="cursor-pointer hover:scale-97 transition ease-in-out duration-200"
           onClick={handleClick}
         >
           Go
+        </Button>
+        <Button
+          className="cursor-pointer hover:scale-97 transition ease-in-out duration-200"
+          onClick={() => {
+            router.push("/");
+            setJobtype(null);
+            setRemote(undefined);
+          }}
+          variant={"outline"}
+        >
+          Clear Filters
         </Button>
       </CardFooter>
     </Card>

@@ -8,12 +8,12 @@ export default async function Home({
 }: {
   searchParams: { q: string; jt: string; rem: boolean };
 }) {
-  const searchVal = searchParams.q;
-  const jobtype = searchParams.jt;
+  const searchVal = await searchParams.q;
+  const jobtype = await searchParams.jt;
   const remote =
-    searchParams.rem === "true"
+    (await searchParams.rem) === "true"
       ? true
-      : searchParams.rem === "false"
+      : (await searchParams.rem) === "false"
       ? false
       : undefined;
   return (

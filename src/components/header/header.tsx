@@ -7,20 +7,30 @@ import { FaPlus } from "react-icons/fa";
 import Link from "next/link";
 import { MdLogin } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { UserContext } from "@/app/(group)/layout";
+import { MdAddBusiness } from "react-icons/md";
 
-export default function HeaderComponent({ fromLogin, user }) {
-  // console.log("USER", user);
+export default function HeaderComponent({ fromLogin }) {
+  const { user } = useContext(UserContext);
+  // console.log("HEader", user?.company?.id);
   return (
     <div className="p-2 w-full flex self-end justify-between px-6 pt-4">
       <div className="flex gap-2 justify-center items-center">
         <ModeToggle />{" "}
-        {user.role === "admin" && (
+        {user?.company?.id ? (
           <Link
             href={"/add_job"}
             className="flex flex-wrap items-center gap-2 md:flex-row cursor-pointer "
           >
             <Button className="cursor-pointer">
               <FaPlus />
+            </Button>
+          </Link>
+        ) : (
+          <Link href={"/add_company"}>
+            <Button className="cursor-pointer">
+              <MdAddBusiness size={24} />
             </Button>
           </Link>
         )}
@@ -36,10 +46,15 @@ export default function HeaderComponent({ fromLogin, user }) {
           </Button>
         </Link>
         <p className="text-muted-foreground text-sm font-semibold">
-          {user.role}
+          {user?.role}
         </p>
       </div>
       <div className="flex gap-6 justify-center items-center">
+        <Link href={`/company/${user?.company?.id}`}>
+          <Button variant={"link"} className="cursor-pointer">
+            Company
+          </Button>
+        </Link>
         <Link href={"/login"}>
           <MdLogin size={24} />
         </Link>

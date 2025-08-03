@@ -1,39 +1,39 @@
-//@ts-nocheck
 "use client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardAction,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import HeaderComponent from "@/components/header/header";
-import { useState } from "react";
+import { Label } from "@radix-ui/react-dropdown-menu";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
-export default function LoginPage() {
+
+export default function Page() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
   async function handleClick() {
-    const res = await fetch("http://localhost:3000/api/loginroute", {
+    const data = {
+      email,
+      password,
+    };
+    const res = await fetch("http://localhost:3000/api/signup", {
       method: "POST",
-      body: JSON.stringify({
-        email,
-        password,
-      }),
+      body: JSON.stringify(data),
     });
-    const data = await res.json();
-    if (data?.success) {
-      toast.success("Successfully Logged In!", { duration: 2000 });
-      router.push("/");
+    const x = await res.json();
+    if (x.success) {
+      toast.success("Success");
+      console.log(x.user);
     } else {
-      alert(data.message);
+      toast.error(x.message);
+      console.log(x.message);
     }
   }
   return (
@@ -41,16 +41,20 @@ export default function LoginPage() {
       {/* <HeaderComponent fromLogin={true} /> */}
       <div className="h-[20%] w-full flex justify-center items-center  ">
         <h1 className="scroll-m-20 text-center text-5xl font-extrabold tracking-wide text-balance">
-          Login
+          SignUp
         </h1>
       </div>
       <div className="w-screen h-full flex justify-center items-center mt-20">
         <Card className="w-full max-w-sm">
           <CardHeader>
-            <CardTitle className="mt-3">Login to your account</CardTitle>
+            <CardTitle className="mt-3">Enter your details</CardTitle>
             <CardAction>
-              <Button variant="link" className="cursor-pointer" onClick={() => router.push("/signup")}>
-                Sign Up
+              <Button
+                variant="link"
+                className="cursor-pointer"
+                onClick={() => router.push("/login")}
+              >
+                Login
               </Button>
             </CardAction>
           </CardHeader>

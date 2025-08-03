@@ -3,9 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const url = req.nextUrl.pathname;
-  //   console.log("URL", url);
   const id = url.split("/api/jobs/")[1];
-
   const job = await prismaClient.jobs.findUnique({
     where: {
       id,

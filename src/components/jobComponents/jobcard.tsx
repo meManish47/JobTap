@@ -13,8 +13,10 @@ import { IoIosArrowForward } from "react-icons/io";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import Link from "next/link";
 type JobType = {
   job: {
+    id: string;
     job_id: string;
     job_title: string;
     job_employment_type: string | null;
@@ -78,9 +80,11 @@ export default function JobCard({ job, search }: JobType) {
           </div>
         </Card>
         <div className="w-10 h-10 rounded-full overflow-hidden bg-blue-100 hover:bg-blue-200 transition-colors duration-200 shadow-md">
-          <Button className="w-full h-full flex items-center justify-center text-blue-600 hover:text-blue-800 transition-colors duration-200 cursor-pointer">
-            <FaArrowRight size={22} />
-          </Button>
+          <Link href={`/jobs/${job.id}`}>
+            <Button className="w-full h-full flex items-center justify-center text-blue-600 hover:text-blue-800 transition-colors duration-200 cursor-pointer">
+              <FaArrowRight size={22} />
+            </Button>
+          </Link>
         </div>
       </CardFooter>
     </Card>

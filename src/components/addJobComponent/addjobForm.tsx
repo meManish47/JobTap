@@ -35,7 +35,7 @@ export default function AddJobForm() {
       job_is_remote: remote,
       employer_name: employerName,
     };
-    console.log("DATA", data);
+    // console.log("DATA", data);
 
     const job = await addJobInDb(data);
     console.log(job);

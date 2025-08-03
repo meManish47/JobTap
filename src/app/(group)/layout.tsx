@@ -1,29 +1,37 @@
 //@ts-nocheck
+"use client";
 import HeaderComponent from "@/components/header/header";
-import { ThemeProvider } from "@/components/theme-provider";
-import prismaClient from "@/services/prisma";
-import { cookies } from "next/headers";
+import { createContext, useEffect, useState } from "react";
 import { Toaster } from "sonner";
-export default async function Laytout({ children }) {
-  const userCookies = await cookies();
-  const userEmail = decodeURIComponent(userCookies.get("token")?.value || "");
-
-  const user = await prismaClient.user.findUnique({
-    where: {
-      email: userEmail,
-    },
-  });
-
+export const UserContext = createContext();
+export default function Laytout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    async function getUser() {
+      const res = await fetch("http://localhost:3000/api/current-user");
+      const data = await res.json();
+      if (data.success) {
+        setUser(data.user);
+      }
+    }
+    getUser();
+  }, []);
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <HeaderComponent fromLogin={false}  user ={user}/>
-      {children}
-      <Toaster />
-    </ThemeProvider>
+    <div>
+      <UserContext.Provider
+        value={{
+          user,
+          setUser,
+        }}
+      >
+        <HeaderComponent fromLogin={false} />
+        {children}
+        <Toaster />
+      </UserContext.Provider>
+    </div>
   );
 }
