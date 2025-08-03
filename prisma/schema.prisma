@@ -29,16 +29,18 @@ model jobs {
 }
 
 model User {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  email    String @unique
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  email    String   @unique
   password String
   role     String
+  company  company?
 }
 
 model company {
   id           String @id @default(auto()) @map("_id") @db.ObjectId
-  owner_id     String @unique
+  owner_id     String @unique @db.ObjectId
   company_name String
   company_logo String
   company_desc String
+  owner        User   @relation(fields: [owner_id], references: [id])
 }

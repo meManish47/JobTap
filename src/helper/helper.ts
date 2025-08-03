@@ -14,6 +14,9 @@ export async function getUserFromCookies() {
       where: {
         id: decoded,
       },
+      include: {
+        company: true,
+      },
       omit: {
         password: true,
       },

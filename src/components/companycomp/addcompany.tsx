@@ -36,7 +36,7 @@ export default function AddCompanyForm() {
     console.log(x);
     if (x.success) {
       toast.success("Company created.", { duration: 2000 });
-      router.push("/");
+      window.location.href = "/";
     } else toast.error("Something went wrong!", { duration: 2000 });
     setLoading(false);
   }

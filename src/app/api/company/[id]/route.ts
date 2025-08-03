@@ -38,12 +38,8 @@ export async function GET(req: NextRequest, { params }) {
 export async function DELETE(req, { params }) {
   const id = params.id;
   const user = await getUserFromCookies();
-  const company = await prismaClient.company.findUnique({
-    where: {
-      id,
-    },
-  });
-  if (company?.owner_id == user?.id) {
+
+  if (user.company?.id == id) {
     const res = await prismaClient.company.delete({
       where: {
         id,

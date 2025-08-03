@@ -1,8 +1,11 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "../ui/card";
+import { useContext } from "react";
+import { UserContext } from "@/app/(group)/layout";
 
 type JobType = {
   job: {
@@ -20,6 +23,7 @@ type JobType = {
 };
 
 export default function JobDetailCard({ job }: JobType) {
+  const { user } = useContext(UserContext);
   return (
     <Card className="h-[90%] w-full px-6 overflow-hidden flex flex-col justify-between ">
       {/* Top Header Section */}
@@ -69,11 +73,16 @@ export default function JobDetailCard({ job }: JobType) {
             Job ID: {job.job_id}
           </p>
         </div>
-        <Link href={job.job_apply_link} target="_blank">
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full cursor-pointer">
-            Apply Now
+        {
+          <Button
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full cursor-pointer disabled:bg-red-400 disabled:line-through disabled:cursor-not-allowed"
+            disabled={user ? false : true}
+          >
+            <Link href={job.job_apply_link} target="_blank">
+              Apply Now
+            </Link>
           </Button>
-        </Link>
+        }
       </div>
     </Card>
   );
