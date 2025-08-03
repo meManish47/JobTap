@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { UserContext } from "@/app/(group)/layout";
 import { MdAddBusiness } from "react-icons/md";
+import ThemeToggleButton from "@/components/ui/theme-toggle-button";
 
 export default function HeaderComponent({ fromLogin }) {
   const { user } = useContext(UserContext);
@@ -17,7 +18,8 @@ export default function HeaderComponent({ fromLogin }) {
   return (
     <div className="p-2 w-full flex self-end justify-between px-6 pt-4">
       <div className="flex gap-2 justify-center items-center">
-        <ModeToggle />{" "}
+        {/* <ModeToggle /> */}
+        <ThemeToggleButton />
         {user?.company?.id ? (
           <Link
             href={"/add_job"}
