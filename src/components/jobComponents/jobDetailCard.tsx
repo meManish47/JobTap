@@ -23,6 +23,7 @@ type JobType = {
 };
 
 export default function JobDetailCard({ job }: JobType) {
+  //@ts-ignore
   const { user } = useContext(UserContext);
   return (
     <Card className="h-[90%] w-full px-6 overflow-hidden flex flex-col justify-between ">

@@ -37,10 +37,23 @@ model User {
 }
 
 model company {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
-  owner_id     String @unique @db.ObjectId
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  owner_id     String     @unique @db.ObjectId
   company_name String
   company_logo String
   company_desc String
-  owner        User   @relation(fields: [owner_id], references: [id])
+  owner        User       @relation(fields: [owner_id], references: [id])
+  openings     openings[]
+}
+
+model openings {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  description     String
+  location        String
+  salary          Int
+  employment_type String
+  open            Boolean  @default(true)
+  company         company? @relation(fields: [companyId], references: [id])
+  companyId       String?  @db.ObjectId
 }

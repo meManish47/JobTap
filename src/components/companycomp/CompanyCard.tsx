@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import DeleteCompanyButton from "./deletecompanybtn";
+import AddOpeningButton from "./addOpenings";
 
 type CompanyData = {
   data: {
@@ -28,10 +29,10 @@ type CompanyData = {
 
 export default function CompanyCard({ data }: CompanyData) {
   const { company, owner } = data;
-  console.log("data", company, owner);
+  // console.log("data", company, owner);
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 dark:from-[#05060a] dark:to-[#0e1218] px-4">
-      <Card className="max-w-2xl w-full shadow-xl p-6 rounded-xl flex flex-col justify-between">
+    <div className="h-full w-full flex items-start justify-center bg-gradient-to-br from-gray-100 to-gray-200 dark:from-[#09090B] dark:to-[#09090B] px-4">
+      <Card className="max-w-2xl w-full  shadow-xl  p-6 rounded-xl flex flex-col justify-between">
         <CardHeader className="flex flex-col items-center gap-4">
           {/* Company Logo */}
           <div className="w-24 h-24 rounded-full overflow-hidden border bg-white shadow">
@@ -50,13 +51,13 @@ export default function CompanyCard({ data }: CompanyData) {
           </h1>
         </CardHeader>
 
-        <CardContent className="text-center">
-          <p className="text-sm text-muted-foreground whitespace-pre-wrap leading-6">
+        <CardContent className="text-center h-4">
+          <p className="text-sm text-muted-foreground whitespace-pre-wrap leading-2">
             {company?.company_desc}
           </p>
         </CardContent>
 
-        <CardFooter className="flex flex-col gap-2 items-center text-sm mt-4 border-t pt-4">
+        <CardFooter className="flex flex-col gap-2 items-center text-sm  border-t pt-4">
           <div className="text-muted-foreground">Owned by:</div>
           <p className="font-medium">{owner?.email}</p>
           <Badge
@@ -65,7 +66,8 @@ export default function CompanyCard({ data }: CompanyData) {
           >
             Role: {owner?.role}
           </Badge>
-          <DeleteCompanyButton id={company.id} />
+          <div className="flex gap-2"><DeleteCompanyButton id={company.id} />
+          <AddOpeningButton id={company.id}/></div>
         </CardFooter>
       </Card>
     </div>
