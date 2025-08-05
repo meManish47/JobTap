@@ -1,7 +1,3 @@
-//@ts-nocheck
-"use client";
-
-import { UserContext } from "@/app/(group)/layout";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,33 +9,31 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { useContext } from "react";
-export default function DeleteCompanyButton({ id, owner }) {
-  const { user } = useContext(UserContext);
-  const router = useRouter();
-  async function handleClick() {
-    const data = await fetch(`http://localhost:3000/api/company/${id}`, {
-      method: "DELETE",
-    });
+import { MdDelete } from "react-icons/md";
+import { Button } from "../ui/button";
+import { toast } from "sonner";
+export default function DeleteOpening({ id }: { id: string }) {
+  async function handleDelete() {
+    const data = await fetch(
+      `http://localhost:3000/api/company/opening/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
     const res = await data.json();
     if (res.success) {
-      console.log("DELETED");
-      window.location.href = `/`;
+      toast.success("Deleted");
+      window.location.href = `/openings`;
     } else {
-      console.log("OOPS");
+      toast.error("error");
     }
   }
 
-  if (user?.id !== owner?.id) {
-    return null;
-  }
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" className="cursor-pointer">
-          Delete
+        <Button className="h-6 w-max" variant={"ghost"}>
+          <MdDelete size={18} color="crimson" />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -47,7 +41,7 @@ export default function DeleteCompanyButton({ id, owner }) {
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete your
-            company.
+            opening.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -55,7 +49,7 @@ export default function DeleteCompanyButton({ id, owner }) {
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
-            onClick={handleClick}
+            onClick={handleDelete}
             className="bg-red-400 cursor-pointer"
           >
             Continue

@@ -33,7 +33,7 @@ export default function LoginPage() {
       toast.success("Successfully Logged In!", { duration: 2000 });
       router.push("/");
     } else {
-      alert(data.message);
+      toast.error(data.message);
     }
   }
   return (
@@ -49,7 +49,11 @@ export default function LoginPage() {
           <CardHeader>
             <CardTitle className="mt-3">Login to your account</CardTitle>
             <CardAction>
-              <Button variant="link" className="cursor-pointer" onClick={() => router.push("/signup")}>
+              <Button
+                variant="link"
+                className="cursor-pointer"
+                onClick={() => router.push("/signup")}
+              >
                 Sign Up
               </Button>
             </CardAction>

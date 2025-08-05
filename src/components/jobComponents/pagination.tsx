@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import SideBar from "../sidebarComponent/SideBar";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { VscLayoutSidebarLeft } from "react-icons/vsc";
 
 export default function PaginationComponent({
   search,
@@ -29,6 +30,7 @@ export default function PaginationComponent({
   const [jobs, setJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const jobsPerPage = 12;
   const router = useRouter();
   useEffect(() => {
@@ -146,12 +148,24 @@ export default function PaginationComponent({
   }
   return (
     <div className="h-full w-screen flex  items-start gap-6 p-4 mt-4 relative ">
-      {true ? (
-        <div className="w-80 h-full  sticky top-10">
-          <SideBar />
-        </div>
-      ) : null}
-      <div className="flex flex-wrap justify-center gap-6 w-full ">
+      <div className="w-80   sticky top-10 hidden sm:block">
+        <SideBar />
+      </div>
+      <div className="w-30 ps-8 sticky top-10 block sm:hidden ">
+        <button
+          onClick={() => {
+            setSidebarOpen((prev) => !prev);
+          }}
+        >
+          <VscLayoutSidebarLeft size={24} />
+          {!sidebarOpen && (
+            <div className="w-100 h-screen flex flex-col justify-start">
+              <SideBar />
+            </div>
+          )}
+        </button>
+      </div>
+      <div className="flex flex-wrap justify-start gap-6 w-full ">
         {jobsArray.map((job) => (
           <div key={job.id}>
             <JobCard job={job} search={searchVal} />

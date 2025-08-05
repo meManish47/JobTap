@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,10 +14,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "sonner";
+import { UserContext } from "@/app/(group)/layout";
 
-export default function AddOpeningButton({ id }: { id: string }) {
+export default function AddOpeningButton({ id, owner }) {
+  const { user } = useContext(UserContext);
   const [title, setTitle] = useState("");
   const [employmentType, setEmployementType] = useState("");
   const [description, setDescription] = useState("");
@@ -40,10 +43,15 @@ export default function AddOpeningButton({ id }: { id: string }) {
     const x = await res.json();
     if (x.success) {
       toast.success("Created successfulyy!");
+      window.location.href = "/openings";
     } else {
       toast.error(x.message);
       console.log(x.message);
     }
+  }
+
+  if (user?.id !== owner?.id) {
+    return null;
   }
   return (
     <main>

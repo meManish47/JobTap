@@ -13,7 +13,7 @@ export default function StarBack() {
   return (
     <>
       {open && (
-        <StarsBackground className="absolute h-[160vh] flex items-center justify-center rounded-xl" />
+        <StarsBackground className="absolute h-[112vh] flex items-center justify-center rounded-xl" />
       )}
     </>
   );

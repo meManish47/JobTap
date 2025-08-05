@@ -18,16 +18,20 @@ import {
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { toast } from "sonner";
+import DeleteOpening from "./deleteOpening";
 
 export default function EditOptions({ opening }) {
   const { user } = useContext(UserContext);
-  const [title, setTitle] = useState("");
-  const [employmentType, setEmployementType] = useState("");
-  const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
-  const [salary, setSalary] = useState<number | undefined>(undefined);
+  const [title, setTitle] = useState(opening.title);
+  const [employmentType, setEmployementType] = useState(
+    opening.employment_type
+  );
+  const [description, setDescription] = useState(opening.description);
+  const [location, setLocation] = useState(opening.location);
+  const [salary, setSalary] = useState<number | undefined>(opening.salary);
   //   console.log(opening, "USRE_______---", user);
-async function handleClick() {
+  async function handleClick() {
     const data = {
       title,
       employment_type: employmentType,
@@ -36,16 +40,28 @@ async function handleClick() {
       salary,
     };
     //console.log({ ...data, id });
-    const dataToAdd = { ...data, companyId: id };
-    
-    
+    const dataToAdd = { ...data, companyId: opening.company.id };
+    const res = await fetch(
+      `http://localhost:3000/api/company/opening/${opening.id}`,
+      {
+        method: "POST",
+        body: JSON.stringify(dataToAdd),
+      }
+    );
+    const x = await res.json();
+    console.log("---dat----a----", x);
+    if (x.success) {
+      toast.success("Updated");
+      window.location.href = "/opening";
+    } else {
+      toast.error(x.message);
+    }
   }
-
 
   const isOwner =
     user?.company?.id && user?.company?.id === opening?.company?.id;
 
-    if (!isOwner) return null;
+  if (!isOwner) return null;
 
   return (
     <div className="flex">
@@ -132,16 +148,18 @@ async function handleClick() {
               <DialogClose asChild>
                 <Button variant="outline">Cancel</Button>
               </DialogClose>
-              <Button variant={"outline"} className="cursor-pointer">
-                Add
+              <Button
+                variant={"outline"}
+                className="cursor-pointer"
+                onClick={handleClick}
+              >
+                Update
               </Button>
             </DialogFooter>
           </DialogContent>
         </form>
       </Dialog>
-      <Button className="h-6 w-max" variant={"ghost"}>
-        <MdDelete size={18} color="crimson" />
-      </Button>
+      <DeleteOpening id={opening.id} />
     </div>
   );
 }

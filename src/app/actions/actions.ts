@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+
 export async function getJobs() {
   const url =
     "https://jsearch.p.rapidapi.com/search?query=developer%20jobs%20in%20chicago&page=12&num_pages=10&country=us&date_posted=all";
@@ -17,4 +19,8 @@ export async function getJobs() {
   } catch (error) {
     console.error(error);
   }
+}
+export async function deleteCookies() {
+  const userCookies = await cookies();
+  userCookies.delete("token");
 }

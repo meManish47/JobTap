@@ -20,14 +20,14 @@ export default async function Home({
       : undefined;
   return (
     <main className="h-full w-screen flex flex-col ">
-      <StarBack />
+      {/* <StarBack /> */}
       {/* <HeaderComponent fromLogin={false} /> */}
       <div className="h-[20%] w-full flex justify-center items-center  ">
         <h1 className="scroll-m-20 text-center text-5xl z-10 font-extrabold tracking-wide text-balance">
           JobTap
         </h1>
       </div>
-      <div>
+      <div className=" h-[110vh]">
         <PaginationComponent search={{ searchVal, jobtype, remote }} />
       </div>
     </main>

@@ -27,9 +27,8 @@ export default function SideBar() {
   function handleClick() {
     router.push(url);
   }
-  // console.log("Remote", remote);
   return (
-    <Card>
+    <Card className="h-full ">
       <CardHeader>
         <CardTitle className="text-2xl">Filters</CardTitle>
       </CardHeader>

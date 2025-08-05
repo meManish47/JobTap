@@ -27,7 +27,12 @@ export async function GET(req: NextRequest) {
   try {
     const jobs = await prismaClient.jobs.findMany({
       where: {
-        job_title: { contains: q, mode: "insensitive" },
+        OR: [
+          { job_title: { contains: q, mode: "insensitive" } },
+          {
+            employer_name: { contains: q, mode: "insensitive" },
+          },
+        ],
         ...(jt !== undefined &&
           jt !== "null" &&
           jt !== "undefined" &&

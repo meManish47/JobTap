@@ -32,11 +32,7 @@ type JobType = {
 export default function JobCard({ job, search }: JobType) {
   return (
     <Card
-      className={
-        search
-          ? `w-full h-80  flex flex-col  justify-between`
-          : `w-70 h-80 hover:scale-103 transition duration-200 flex flex-col  justify-between`
-      }
+      className={`w-70 h-82 hover:scale-103 transition duration-200 flex flex-col  justify-between`}
     >
       <CardHeader>
         <CardTitle className=" lg:text-lg/tight line-clamp-2 sm:text-sm">

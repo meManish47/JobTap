@@ -1,7 +1,9 @@
 //@ts-nocheck
 import CompanyCard from "@/components/companycomp/CompanyCard";
 import DeleteCompanyButton from "@/components/companycomp/deletecompanybtn";
+import ReviewTab from "@/components/companycomp/reviewcomponent";
 import ShowOpenings from "@/components/openingsComp/showopenings";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardAction,
@@ -11,6 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 export default async function Page({ params }) {
   const id = params.id;
   // console.log("----------------------", typeof id);
@@ -37,13 +40,7 @@ export default async function Page({ params }) {
     return (
       <div className="h-full w-full flex flex-col px-40">
         <CompanyCard data={info} />
-        {/* <div className="scroll-m-20  text-4xl font-extrabold tracking-tight text-balance">
-          {" "}
-          Openings:
-        </div>
-        <div className="w-full h-full  flex flex-col ">
-          <ShowOpenings />
-        </div> */}
+        <ReviewTab company={info.company} />
       </div>
     );
   }

@@ -1,19 +1,13 @@
 //@ts-nocheck
-"use client";
-import { ModeToggle } from "@/app/util-components/mode-toggle";
 import JobSearchBar from "../jobComponents/jobSearchBar";
 import { Button } from "../ui/button";
 import { FaPlus } from "react-icons/fa";
 import Link from "next/link";
-import { MdLogin } from "react-icons/md";
-import { useRouter } from "next/navigation";
-import { useContext } from "react";
-import { UserContext } from "@/app/(group)/layout";
 import { MdAddBusiness } from "react-icons/md";
 import ThemeToggleButton from "@/components/ui/theme-toggle-button";
+import UserDropDown from "./userdropdown";
 
-export default function HeaderComponent({ fromLogin }) {
-  const { user } = useContext(UserContext);
+export default function HeaderComponent({ fromLogin, user }) {
   // console.log("HEader", user?.company?.id);
   return (
     <div className="p-2 w-full flex self-end justify-between px-6 pt-4">
@@ -39,7 +33,7 @@ export default function HeaderComponent({ fromLogin }) {
         <Link
           href={"/"}
           onClick={() => {
-            useRouter().refresh();
+            window.location.href = "/";
           }}
           className="flex flex-wrap items-center gap-2 md:flex-row cursor-pointer "
         >
@@ -52,14 +46,12 @@ export default function HeaderComponent({ fromLogin }) {
         </p>
       </div>
       <div className="flex gap-6 justify-center items-center">
-        <Link href={`/company/${user?.company?.id}`}>
+        <Link href={`/company`}>
           <Button variant={"link"} className="cursor-pointer">
-            Company
+            Companies
           </Button>
         </Link>
-        <Link href={"/login"}>
-          <MdLogin size={24} />
-        </Link>
+        <UserDropDown />
         {!fromLogin && <JobSearchBar />}
       </div>
     </div>

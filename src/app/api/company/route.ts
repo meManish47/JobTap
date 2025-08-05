@@ -39,3 +39,31 @@ export async function POST(req: NextRequest) {
     });
   }
 }
+
+export async function GET(req: NextRequest) {
+  try {
+    const companies = await prismaClient.company.findMany({
+      include: {
+        //@ts-ignore
+        owner: true,
+      },
+    });
+    if (companies) {
+      return NextResponse.json({
+        success: true,
+        companies,
+      });
+    } else {
+      return NextResponse.json({
+        success: false,
+        message: "No companies",
+      });
+    }
+  } catch (err) {
+    return NextResponse.json({
+      success: false,
+      //@ts-ignore
+      message: err.message,
+    });
+  }
+}

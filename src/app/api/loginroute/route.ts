@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     } else {
       return NextResponse.json({
         success: false,
-        message: "User not created",
+        message: "User doesn't exist",
       });
     }
   } catch (err) {

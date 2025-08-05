@@ -1,6 +1,8 @@
 //@ts-nocheck
 "use client";
+import { AppSidebar } from "@/components/app-sidebar";
 import HeaderComponent from "@/components/header/header";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { createContext, useEffect, useState } from "react";
 import { Toaster } from "sonner";
 export const UserContext = createContext();
@@ -28,7 +30,7 @@ export default function Laytout({
           setUser,
         }}
       >
-        <HeaderComponent fromLogin={false} />
+        <HeaderComponent fromLogin={false} user={user}/>
         {children}
         <Toaster />
       </UserContext.Provider>

@@ -14,6 +14,8 @@ import { toast } from "sonner";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import EditOptions from "./editoptions";
+import Link from "next/link";
+import { FaArrowRight } from "react-icons/fa";
 
 export default function ShowOpenings() {
   const [openings, setOpenings] = useState([]);
@@ -39,7 +41,7 @@ export default function ShowOpenings() {
           return (
             <Card
               key={opening.id}
-              className="bg-black mt-8 max-w-[80%] ms-10 w-60 h-60 flex flex-col justify-between"
+              className="bg-black mt-8 max-w-[80%] ms-10 w-80 h-60 flex flex-col justify-between"
             >
               <CardHeader>
                 <CardTitle>{opening.title}</CardTitle>
@@ -63,6 +65,11 @@ export default function ShowOpenings() {
                 <Button variant={"outline"}>
                   {opening.company.company_name}
                 </Button>
+                <Link href={`/opening/${opening.id}`}>
+                  <Button className="w-full h-full flex items-center justify-center text-blue-600 hover:text-blue-800 transition-colors duration-200 cursor-pointer">
+                    <FaArrowRight size={22} />
+                  </Button>
+                </Link>
               </CardFooter>
             </Card>
           );

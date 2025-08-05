@@ -66,8 +66,10 @@ export default function CompanyCard({ data }: CompanyData) {
           >
             Role: {owner?.role}
           </Badge>
-          <div className="flex gap-2"><DeleteCompanyButton id={company.id} />
-          <AddOpeningButton id={company.id}/></div>
+          <div className="flex gap-2">
+            <DeleteCompanyButton id={company.id} owner={owner} />
+            <AddOpeningButton id={company.id} owner={owner} />
+          </div>
         </CardFooter>
       </Card>
     </div>
