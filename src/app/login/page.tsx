@@ -43,7 +43,7 @@ export default function LoginPage() {
           Login
         </h1>
       </div>
-      <div className="w-screen h-full flex justify-center items-center mt-20">
+      <div className="w-screen h-full flex flex-col justify-center items-center mt-20">
         <Card className="w-full max-w-sm">
           <CardHeader>
             <CardTitle className="mt-3">Login to your account</CardTitle>
@@ -102,6 +102,16 @@ export default function LoginPage() {
             </Button>
           </CardFooter>
         </Card>
+
+        <Button
+          variant={"link"}
+          className="mt-10 cursor-pointer"
+          onClick={() => {
+            window.location.href = "/";
+          }}
+        >
+          Home
+        </Button>
       </div>
     </main>
   );
