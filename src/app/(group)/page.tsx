@@ -3,16 +3,13 @@ import StarBack from "@/components/starbackground";
 export default async function Home({
   searchParams,
 }: {
-  searchParams: { q: string; jt: string; rem: string };
+  searchParams: Promise<{ q: string; jt: string; rem: string }>;
 }) {
-  const searchVal = searchParams.q;
-  const jobtype = searchParams.jt;
+  const searchP = await searchParams;
+  const searchVal = searchP.q;
+  const jobtype = searchP.jt;
   const remote =
-    searchParams.rem === "true"
-      ? true
-      : searchParams.rem === "false"
-      ? false
-      : undefined;
+    searchP.rem === "true" ? true : searchP.rem === "false" ? false : undefined;
   return (
     <main className="h-full w-screen flex flex-col ">
       {/* <StarBack /> */}

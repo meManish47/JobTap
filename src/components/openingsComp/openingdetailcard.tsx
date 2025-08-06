@@ -10,6 +10,7 @@ import ApplyButton from "../applicationComp/applybutton";
 import EditOptions from "./editoptions";
 import ViewApplicants from "../applicationComp/viewapplications";
 import { ImSpinner9 } from "react-icons/im";
+import { Button } from "../ui/button";
 
 type OpeningType = {
   opening: {
@@ -93,9 +94,11 @@ export default function OpeningDetailCard({ opening }: OpeningType) {
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-t pt-4 gap-4">
         <div>
           <p className="text-sm text-muted-foreground">Company</p>
-          <p className="font-medium text-base">
-            {opening.company?.company_name || "Unknown"}
-          </p>
+          <Button className="h-4">
+            <p className="font-medium text-base">
+              {opening.company?.company_name || "Unknown"}
+            </p>
+          </Button>
           <p className="text-xs text-muted-foreground mt-1">
             Opening ID: {opening.id}
           </p>

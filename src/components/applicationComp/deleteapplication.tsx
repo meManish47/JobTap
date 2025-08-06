@@ -3,7 +3,13 @@ import { useContext } from "react";
 import { MdDelete } from "react-icons/md";
 import { toast } from "sonner";
 
-export default function DeleteApplication({ id }: { id: string }) {
+export default function DeleteApplication({
+  userId,
+  id,
+}: {
+  id: string;
+  userId: string;
+}) {
   const context = useContext(UserContext);
   const user = context?.user;
   async function handleDelete() {
@@ -21,7 +27,7 @@ export default function DeleteApplication({ id }: { id: string }) {
       toast.error("Something went wrong!");
     }
   }
-  if (user?.id !== id) {
+  if (user?.id !== userId) {
     return null;
   }
   return (

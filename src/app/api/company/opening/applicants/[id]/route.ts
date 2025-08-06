@@ -3,9 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const openingId = params.id;
+  const p = await params;
+  const openingId = p.id;
   if (!openingId) {
     return NextResponse.json({
       success: false,
@@ -35,7 +36,7 @@ export async function GET(
   } catch (err) {
     return NextResponse.json({
       success: false,
-      
+
       message: (err as Error).message,
     });
   }
@@ -43,9 +44,9 @@ export async function GET(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const id = params.id;
+  const { id } = await params;
   try {
     await prismaClient.application.delete({
       where: { id },

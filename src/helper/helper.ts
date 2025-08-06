@@ -13,14 +13,17 @@ export async function getUserFromCookies() {
     return null;
   }
   try {
-     const decoded = jwt.verify(
+    const decoded = jwt.verify(
       token,
       process.env.JWT_SECRET_KEY as string
-    ) as jwtDecode;
-
+    ) as string;
+    // console.log("--------------", decoded);
+    // console.log("--------------", typeof decoded);
+    // console.log("--------------", decoded.id);
+    // console.log("--------------", typeof decoded.id);
     const user = await prismaClient.user.findUnique({
       where: {
-        id: decoded.id,
+        id: decoded,
       },
       include: {
         company: true,

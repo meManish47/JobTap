@@ -92,7 +92,7 @@ export default function ViewApplicants({ opening }: OpeningType) {
                     <CardHeader>
                       {applicant?.user?.email}
                       <CardAction className="h-10">
-                        <DeleteApplication id={applicant.id} />
+                        <DeleteApplication id={applicant.id} userId={applicant.userId} />
                       </CardAction>
                     </CardHeader>
                   </Card>

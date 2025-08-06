@@ -3,9 +3,10 @@ import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const parid = params.id;
+  const { id } = await params;
+  const parid = id;
 
   const company = await prismaClient.company.findUnique({
     where: {
@@ -39,13 +40,13 @@ export async function GET(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const id = params.id;
+  const {id}=await params
   const user = await getUserFromCookies();
 
   if (user?.company?.id == id) {
-     await prismaClient.company.delete({
+    await prismaClient.company.delete({
       where: {
         id,
       },

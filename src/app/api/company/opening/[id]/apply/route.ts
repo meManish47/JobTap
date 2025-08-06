@@ -4,9 +4,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const openingId = params.id;
+  const p = await params;
+  const openingId = p.id;
   const user = await getUserFromCookies();
   if (!user) {
     return NextResponse.json({
@@ -18,6 +19,7 @@ export async function GET(
   try {
     const existingApplication = await prismaClient.application.findFirst({
       where: {
+        openingsId:openingId,
         userId: user.id,
       },
     });

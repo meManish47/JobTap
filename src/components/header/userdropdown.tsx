@@ -14,12 +14,12 @@ import { toast } from "sonner";
 
 export default function UserDropDown() {
   const context = useContext(UserContext);
-  const user = context?.user
+  const user = context?.user;
   async function handleLogout() {
     const res = await fetch("http://localhost:3000/api/logoutroute");
     const x = await res.json();
     if (x.success) {
-      window.location.reload();
+      window.location.href = "/login";
     } else {
       toast.error("Try again");
     }

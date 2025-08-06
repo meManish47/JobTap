@@ -1,7 +1,15 @@
 import CompanyCard from "@/components/companycomp/CompanyCard";
 import ReviewTab from "@/components/companycomp/reviewcomponent";
-export default async function Page({ params }: { params: { id: string } }) {
-  const id = params.id;
+
+export default async function Page({
+  params 
+} : {
+  params : Promise<{
+    id : string
+  }>
+}) {
+  const { id } = await params;
+  // const id = params.id;
   // console.log("----------------------", typeof id);
   if (id === "undefined")
     return (

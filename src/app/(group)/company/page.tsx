@@ -2,6 +2,7 @@ import AllCompanyCard from "@/components/companycomp/allcompanycard";
 import { Suspense } from "react";
 import { ImSpinner9 } from "react-icons/im";
 import { company } from "../../../../generated/prisma";
+
 export default async function AllCompaniesPage() {
   const res = await fetch("http://localhost:3000/api/company");
   const data = await res.json();

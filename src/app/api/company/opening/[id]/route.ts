@@ -3,9 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const id = params.id;
+  const p = await params;
+  const id = p.id;
   const opening = await prismaClient.openings.findUnique({
     where: {
       id,
@@ -28,9 +29,9 @@ export async function GET(
 }
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const id = params.id;
+  const { id } = await params;
   const body = await req.json();
   try {
     const updatedOpening = await prismaClient.openings.update({
@@ -57,8 +58,11 @@ export async function POST(
     });
   }
 }
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
-  const id = params.id;
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
   try {
     await prismaClient.openings.delete({
       where: { id },

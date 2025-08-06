@@ -1,8 +1,12 @@
 import JobDetailCard from "@/components/jobComponents/jobDetailCard";
 import { notFound } from "next/navigation";
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const id = params.id;
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
   console.log(id);
   const data = await fetch(`http://localhost:3000/api/jobs/${id}`);
   const res = await data.json();
