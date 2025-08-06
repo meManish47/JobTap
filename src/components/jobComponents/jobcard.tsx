@@ -8,28 +8,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { FaArrowRight } from "react-icons/fa6";
-import { IoIosArrowForward } from "react-icons/io";
 
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import Link from "next/link";
-type JobType = {
-  job: {
-    id: string;
-    job_id: string;
-    job_title: string;
-    job_employment_type: string | null;
-    job_apply_link: string;
-    job_description: string;
-    job_location: string;
-    job_is_remote: boolean;
-    employer_name: string;
-    employer_logo: string | null;
-  };
+import { jobs } from "../../../generated/prisma";
+type JobType = jobs & {
   search: string;
 };
-export default function JobCard({ job, search }: JobType) {
+export default function JobCard({ job, search }: {job:jobs,search:string}) {
   return (
     <Card
       className={`w-70 h-82 hover:scale-103 transition duration-200 flex flex-col  justify-between`}
@@ -38,7 +26,6 @@ export default function JobCard({ job, search }: JobType) {
         <CardTitle className=" lg:text-lg/tight line-clamp-2 sm:text-sm">
           {job.job_title}
         </CardTitle>
-        {/*  <CardDescription>{job.job_publisher}</CardDescription> */}
         <CardAction>
           <div className="flex flex-col gap-1 items-end">
             <Badge

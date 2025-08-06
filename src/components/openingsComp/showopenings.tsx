@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 import {
   Card,
@@ -10,15 +9,19 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import EditOptions from "./editoptions";
 import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
-
+import { openings, company } from "../../../generated/prisma";
+import { ImSpinner9 } from "react-icons/im";
+type OpeningsTypeWithCmpany = openings & {
+  company: company;
+};
 export default function ShowOpenings() {
-  const [openings, setOpenings] = useState([]);
+  const [openings, setOpenings] = useState<OpeningsTypeWithCmpany[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     async function getOpen() {
       const openRes = await fetch("http://localhost:3000/api/company/opening");
@@ -30,10 +33,20 @@ export default function ShowOpenings() {
       } else {
         setOpenings([]);
       }
+      setLoading(false);
     }
     getOpen();
   }, []);
-
+  if (loading) {
+    return (
+      <div className="h-screen flex flex-col justify-center items-center w-screen">
+        <ImSpinner9 className=" animate-spin text-3xl mb-4" />
+        <h2 className="scroll-m-20 pb-2 text-2xl px-4 font-semibold tracking-tight first:mt-0 flex justify-center items-center">
+          Loading...
+        </h2>
+      </div>
+    );
+  }
   return (
     <div className="flex h-full w-full flex-wrap px-4">
       {openings &&
@@ -62,7 +75,13 @@ export default function ShowOpenings() {
               </CardContent>
               <CardFooter className="flex justify-between">
                 <p>₹{opening.salary}</p>
-                <Button variant={"outline"}>
+                <Button
+                  variant={"outline"}
+                  onClick={() =>
+                    (window.location.href = `/company/${opening?.companyId}`)
+                  }
+                  className="cursor-pointer"
+                >
                   {opening.company.company_name}
                 </Button>
                 <Link href={`/opening/${opening.id}`}>

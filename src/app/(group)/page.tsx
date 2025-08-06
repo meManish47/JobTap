@@ -1,21 +1,16 @@
-//@ts-nocheck
-import HeaderComponent from "@/components/header/header";
-import { ModeToggle } from "../util-components/mode-toggle";
-import JobSearchBar from "@/components/jobComponents/jobSearchBar";
 import PaginationComponent from "@/components/jobComponents/pagination";
-import { StarsBackground } from "@/components/animate-ui/backgrounds/stars";
 import StarBack from "@/components/starbackground";
 export default async function Home({
   searchParams,
 }: {
-  searchParams: { q: string; jt: string; rem: boolean };
+  searchParams: { q: string; jt: string; rem: string };
 }) {
-  const searchVal = await searchParams.q;
-  const jobtype = await searchParams.jt;
+  const searchVal = searchParams.q;
+  const jobtype = searchParams.jt;
   const remote =
-    (await searchParams.rem) === "true"
+    searchParams.rem === "true"
       ? true
-      : (await searchParams.rem) === "false"
+      : searchParams.rem === "false"
       ? false
       : undefined;
   return (

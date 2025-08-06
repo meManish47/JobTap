@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,7 +11,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import HeaderComponent from "@/components/header/header";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -106,9 +104,6 @@ export default function LoginPage() {
             >
               Login
             </Button>
-            {/* <Button variant="outline" className="w-full">
-              Login with Google
-            </Button> */}
           </CardFooter>
         </Card>
       </div>

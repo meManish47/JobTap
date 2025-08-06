@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 import {
   Card,
@@ -19,9 +18,12 @@ export default function SideBar() {
   const q = searchParams.get("q");
   const jt = searchParams.get("jt");
   const rem = searchParams.get("rem");
+  const searchRemote = Boolean(rem);
   const router = useRouter();
   const [jobtype, setJobtype] = useState(jt);
-  const [remote, setRemote] = useState(rem || undefined);
+  const [remote, setRemote] = useState<boolean | undefined>(
+    searchRemote || undefined
+  );
   let url = `/?q=${q}&jt=${jobtype}&rem=${remote}`;
   // console.log(url);
   function handleClick() {

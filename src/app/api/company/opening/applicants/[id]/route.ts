@@ -5,62 +5,49 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const id = params.id;
-  const opening = await prismaClient.openings.findUnique({
-    where: {
-      id,
-    },
-    include: {
-      company: true,
-    },
-  });
-  if (opening) {
-    return NextResponse.json({
-      success: true,
-      opening,
-    });
-  } else {
+  const openingId = params.id;
+  if (!openingId) {
     return NextResponse.json({
       success: false,
-      opening: [],
+      message: "Invalid Opening ID",
     });
   }
-}
-export async function POST(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const id = params.id;
-  const body = await req.json();
   try {
-    const updatedOpening = await prismaClient.openings.update({
+    const applicants = await prismaClient.application.findMany({
       where: {
-        id,
+        openingsId: openingId,
       },
-      data: body,
+      include: {
+        user: true,
+      },
     });
-    if (updatedOpening) {
+    if (applicants) {
       return NextResponse.json({
         success: true,
-        opening: updatedOpening,
+        applicants,
       });
     } else {
       return NextResponse.json({
         success: false,
-        message: "Not updated",
+        message: "No applicants",
       });
     }
   } catch (err) {
     return NextResponse.json({
       success: false,
+      
       message: (err as Error).message,
     });
   }
 }
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   const id = params.id;
   try {
-    await prismaClient.openings.delete({
+    await prismaClient.application.delete({
       where: { id },
     });
     return NextResponse.json({

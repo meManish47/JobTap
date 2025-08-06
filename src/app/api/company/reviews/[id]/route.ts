@@ -30,8 +30,8 @@ export async function GET(
   } catch (err) {
     return NextResponse.json({
       success: false,
-      //@ts-ignore
-      message: err.message,
+      
+      message: (err as Error).message,
     });
   }
 }

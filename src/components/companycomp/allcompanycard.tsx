@@ -9,8 +9,8 @@ import {
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-//@ts-ignore
-export default function AllCompanyCard({ company }) {
+import { company } from "../../../generated/prisma";
+export default function AllCompanyCard({ company }: { company: company }) {
   return (
     <Card className="bg-[#1e1e20] hover:shadow-xl transition-all duration-300 text-white flex flex-col justify-between h-full">
       <CardHeader className="space-y-2">

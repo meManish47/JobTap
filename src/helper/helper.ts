@@ -1,18 +1,26 @@
-//@ts-nocheck
 import prismaClient from "@/services/prisma";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
-import { decode } from "punycode";
+
+type jwtDecode = {
+  id: string;
+};
+
 export async function getUserFromCookies() {
   const userCookies = await cookies();
-  const token = userCookies.get("token")?.value;
-
+  const token: string | undefined = userCookies.get("token")?.value;
+  if (!token) {
+    return null;
+  }
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+     const decoded = jwt.verify(
+      token,
+      process.env.JWT_SECRET_KEY as string
+    ) as jwtDecode;
 
     const user = await prismaClient.user.findUnique({
       where: {
-        id: decoded,
+        id: decoded.id,
       },
       include: {
         company: true,
@@ -28,5 +36,3 @@ export async function getUserFromCookies() {
     return null;
   }
 }
-
-

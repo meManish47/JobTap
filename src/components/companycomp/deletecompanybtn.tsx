@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 
 import { UserContext } from "@/app/(group)/layout";
@@ -16,8 +15,18 @@ import {
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
-export default function DeleteCompanyButton({ id, owner }) {
-  const { user } = useContext(UserContext);
+type IdwithOwner = {
+  id: string;
+  owner: {
+    id: string;
+    email: string;
+    password: string;
+    role: string;
+  };
+};
+export default function DeleteCompanyButton({ id, owner }:IdwithOwner) {
+  const context = useContext(UserContext);
+  const user = context?.user
   const router = useRouter();
   async function handleClick() {
     const data = await fetch(`http://localhost:3000/api/company/${id}`, {

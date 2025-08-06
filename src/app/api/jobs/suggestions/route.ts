@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
       id: true,
       job_title: true,
     },
-    take: 10,
+    take: 20,
   });
   if (sugg) {
     return NextResponse.json({

@@ -29,12 +29,13 @@ model jobs {
 }
 
 model User {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  email    String   @unique
-  password String
-  role     String
-  company  company?
-  review   review[]
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  email       String        @unique
+  password    String
+  role        String
+  company     company?
+  review      review[]
+  application application[]
 }
 
 model company {
@@ -49,15 +50,16 @@ model company {
 }
 
 model openings {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
   title           String
   description     String
   location        String
   salary          Int
   employment_type String
-  open            Boolean  @default(true)
-  company         company? @relation(fields: [companyId], references: [id])
-  companyId       String?  @db.ObjectId
+  open            Boolean       @default(true)
+  company         company?      @relation(fields: [companyId], references: [id])
+  companyId       String?       @db.ObjectId
+  application     application[]
 }
 
 model review {
@@ -67,4 +69,12 @@ model review {
   userId    String  @db.ObjectId
   company   company @relation(fields: [companyId], references: [id])
   companyId String  @db.ObjectId
+}
+
+model application {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @db.ObjectId
+  openings   openings? @relation(fields: [openingsId], references: [id])
+  openingsId String?   @db.ObjectId
 }

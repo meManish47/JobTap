@@ -10,7 +10,6 @@ export async function POST(req: NextRequest) {
       message: "Unauthorized",
     });
   const body = await req.json();
-  // console.log("BODY----------", body);
   const companyData = {
     company_name: body.company_name,
     company_desc: body.company_desc,
@@ -44,7 +43,6 @@ export async function GET(req: NextRequest) {
   try {
     const companies = await prismaClient.company.findMany({
       include: {
-        //@ts-ignore
         owner: true,
       },
     });
@@ -62,8 +60,7 @@ export async function GET(req: NextRequest) {
   } catch (err) {
     return NextResponse.json({
       success: false,
-      //@ts-ignore
-      message: err.message,
+      message: (err as Error).message,
     });
   }
 }

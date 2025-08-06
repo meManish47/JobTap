@@ -27,8 +27,7 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     return NextResponse.json({
       success: false,
-      //@ts-ignore
-      message: err.message,
+      message: "Something Went wrong",
     });
   }
 }
@@ -55,8 +54,7 @@ export async function GET(req: NextRequest) {
   } catch (err) {
     return NextResponse.json({
       success: false,
-      //@ts-ignore
-      message: err.message,
+      message: "Something Went Wrong",
     });
   }
 }

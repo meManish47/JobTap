@@ -1,6 +1,4 @@
-//@ts-nocheck
 "use client";
-import { getAllJobsFromDb } from "@/app/actions/prismaActions";
 import { ImSpinner9 } from "react-icons/im";
 
 import {
@@ -18,19 +16,19 @@ import SideBar from "../sidebarComponent/SideBar";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { VscLayoutSidebarLeft } from "react-icons/vsc";
-
+import { jobs } from "../../../generated/prisma";
 export default function PaginationComponent({
   search,
 }: {
-  search: { searchVal: string; jobtype: string; remote: boolean };
+  search: { searchVal: string; jobtype: string; remote: boolean |undefined };
 }) {
   const searchVal = search.searchVal;
   const jobtype = search.jobtype;
   const remote = search.remote;
-  const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState<jobs[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const jobsPerPage = 12;
   const router = useRouter();
   useEffect(() => {
@@ -152,18 +150,18 @@ export default function PaginationComponent({
         <SideBar />
       </div>
       <div className="w-30 ps-8 sticky top-10 block sm:hidden ">
-        <button
+        <div
           onClick={() => {
             setSidebarOpen((prev) => !prev);
           }}
         >
           <VscLayoutSidebarLeft size={24} />
           {!sidebarOpen && (
-            <div className="w-100 h-screen flex flex-col justify-start">
+            <div className="min-w-xs  h-screen flex flex-col justify-start">
               <SideBar />
             </div>
           )}
-        </button>
+        </div>
       </div>
       <div className="flex flex-wrap justify-start gap-6 w-full ">
         {jobsArray.map((job) => (

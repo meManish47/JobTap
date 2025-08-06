@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 import {
   Card,
@@ -10,15 +9,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import EditOptions from "./editoptions";
 import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
-
+import { openings, company } from "../../../generated/prisma";
+type OpeningWithCompany = openings & {
+  company: company;
+};
 export default function ShowOpeningsOfCompany({ id }: { id: string }) {
-  const [openings, setOpenings] = useState([]);
+  const [openings, setOpenings] = useState<OpeningWithCompany[]>([]);
   useEffect(() => {
     async function getOpen() {
       const openRes = await fetch("http://localhost:3000/api/company/opening");

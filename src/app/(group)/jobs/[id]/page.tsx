@@ -1,8 +1,7 @@
-//@ts-nocheck
 import JobDetailCard from "@/components/jobComponents/jobDetailCard";
 import { notFound } from "next/navigation";
 
-export default async function Page({ params }) {
+export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
   console.log(id);
   const data = await fetch(`http://localhost:3000/api/jobs/${id}`);

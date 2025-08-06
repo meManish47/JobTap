@@ -1,7 +1,7 @@
 import OpeningDetailCard from "@/components/openingsComp/openingdetailcard";
 import { notFound } from "next/navigation";
 
-export default async function Page({ params }) {
+export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
   console.log(id);
   const data = await fetch(`http://localhost:3000/api/company/opening/${id}`);
@@ -11,7 +11,7 @@ export default async function Page({ params }) {
   const opening = res.opening;
   console.log("opning", opening);
   return (
-    <div className="h-screen w-full flex p-10 justify-center items-center pb-28 ">
+    <div className="h-screen w-screen flex p-10 justify-center items-start pb-28 min-w-sm ">
       <OpeningDetailCard opening={opening} />
     </div>
   );

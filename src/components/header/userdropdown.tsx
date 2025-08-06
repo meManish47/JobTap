@@ -13,7 +13,8 @@ import { FaUser } from "react-icons/fa6";
 import { toast } from "sonner";
 
 export default function UserDropDown() {
-  const { user } = useContext(UserContext);
+  const context = useContext(UserContext);
+  const user = context?.user
   async function handleLogout() {
     const res = await fetch("http://localhost:3000/api/logoutroute");
     const x = await res.json();
@@ -35,9 +36,23 @@ export default function UserDropDown() {
               {user.email}
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Billing</DropdownMenuItem>
-            <DropdownMenuItem>Team</DropdownMenuItem>
+            {user?.company ? (
+              <DropdownMenuItem
+                onClick={() => {
+                  window.location.href = "/add_job";
+                }}
+              >
+                Add a job
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem
+                onClick={() => {
+                  window.location.href = "/add_company";
+                }}
+              >
+                Add a company
+              </DropdownMenuItem>
+            )}
             <DropdownMenuItem onClick={handleLogout}>LogOut</DropdownMenuItem>
           </DropdownMenuContent>
         ) : (

@@ -106,9 +106,6 @@ export default function Page() {
             >
               Login
             </Button>
-            {/* <Button variant="outline" className="w-full">
-              Login with Google
-            </Button> */}
           </CardFooter>
         </Card>
       </div>

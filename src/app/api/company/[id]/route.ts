@@ -1,8 +1,10 @@
-//@ts-nocheck
 import { getUserFromCookies } from "@/helper/helper";
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
-export async function GET(req: NextRequest, { params }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   const parid = params.id;
 
   const company = await prismaClient.company.findUnique({
@@ -35,12 +37,15 @@ export async function GET(req: NextRequest, { params }) {
   }
 }
 
-export async function DELETE(req, { params }) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   const id = params.id;
   const user = await getUserFromCookies();
 
-  if (user.company?.id == id) {
-    const res = await prismaClient.company.delete({
+  if (user?.company?.id == id) {
+     await prismaClient.company.delete({
       where: {
         id,
       },

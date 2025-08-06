@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { getUserFromCookies } from "@/helper/helper";
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
@@ -28,7 +27,7 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     return NextResponse.json({
       success: false,
-      message: err.message,
+      message: (err as Error).message,
     });
   }
 }
@@ -54,7 +53,7 @@ export async function GET(req: NextRequest) {
   } catch (err) {
     return NextResponse.json({
       success: false,
-      message: err.message,
+      message: (err as Error).message,
     });
   }
 }

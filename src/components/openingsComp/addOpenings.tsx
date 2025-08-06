@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 "use client";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,9 +17,14 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { useContext, useState } from "react";
 import { toast } from "sonner";
 import { UserContext } from "@/app/(group)/layout";
-
-export default function AddOpeningButton({ id, owner }) {
-  const { user } = useContext(UserContext);
+import { User } from "../../../generated/prisma";
+type IdwithOwner=
+{id:string,
+  owner:User
+}
+export default function AddOpeningButton({ id, owner }:IdwithOwner) {
+  const context = useContext(UserContext)
+  const user = context?.user
   const [title, setTitle] = useState("");
   const [employmentType, setEmployementType] = useState("");
   const [description, setDescription] = useState("");
@@ -43,7 +48,7 @@ export default function AddOpeningButton({ id, owner }) {
     const x = await res.json();
     if (x.success) {
       toast.success("Created successfulyy!");
-      window.location.href = "/openings";
+      window.location.reload();
     } else {
       toast.error(x.message);
       console.log(x.message);

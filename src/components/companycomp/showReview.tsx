@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 import {
   Card,
@@ -14,16 +13,27 @@ import { useContext } from "react";
 import { UserContext } from "@/app/(group)/layout";
 import { MdDelete } from "react-icons/md";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-
-export default function ShowReviews({ reviews }) {
-  const { user } = useContext(UserContext);
+import { ImSpinner9 } from "react-icons/im";
+import { review,User } from "../../../generated/prisma";
+type ReviewWithUser =review&{
+  user:User
+}
+export default function ShowReviews({ reviews }: { reviews: ReviewWithUser[] }) {
+  const context = useContext(UserContext);
+  const user = context?.user;
   //   console.log("---fnsjkfhkds", reviews);
   if (!reviews?.length) {
-    return <p className="text-muted-foreground mt-4">No reviews.</p>;
+    return (
+      <div className=" flex flex-col justify-start items-center">
+        <ImSpinner9 className=" animate-spin text-3xl mb-4" />
+        <h2 className="scroll-m-20 pb-2 text-2xl px-4 font-semibold tracking-tight first:mt-0 flex justify-center items-center">
+          Loading...
+        </h2>
+      </div>
+    );
   }
 
-  async function handleDelete(id) {
+  async function handleDelete(id:string) {
     const res = await fetch(`http://localhost:3000/api/company/reviews/${id}`, {
       method: "DELETE",
     });

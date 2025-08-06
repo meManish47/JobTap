@@ -1,8 +1,6 @@
-//@ts-nocheck
 "use client";
 import { TbEdit } from "react-icons/tb";
 import { Button } from "../ui/button";
-import { MdDelete } from "react-icons/md";
 import { useContext, useState } from "react";
 import { UserContext } from "@/app/(group)/layout";
 import {
@@ -20,9 +18,27 @@ import { Input } from "../ui/input";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { toast } from "sonner";
 import DeleteOpening from "./deleteOpening";
-
-export default function EditOptions({ opening }) {
-  const { user } = useContext(UserContext);
+import { openings, company } from "../../../generated/prisma";
+type OpeningType = {
+  opening: {
+    id: string;
+    title: string;
+    description: string;
+    location: string;
+    salary: number;
+    employment_type: string;
+    open: boolean;
+    companyId: string | null;
+    company?: {
+      id: string;
+      company_name: string;
+      logo?: string;
+    };
+  };
+};
+export default function EditOptions({ opening }: OpeningType) {
+  const context = useContext(UserContext);
+  const user = context?.user;
   const [title, setTitle] = useState(opening.title);
   const [employmentType, setEmployementType] = useState(
     opening.employment_type
@@ -40,7 +56,7 @@ export default function EditOptions({ opening }) {
       salary,
     };
     //console.log({ ...data, id });
-    const dataToAdd = { ...data, companyId: opening.company.id };
+    const dataToAdd = { ...data, companyId: opening.company?.id };
     const res = await fetch(
       `http://localhost:3000/api/company/opening/${opening.id}`,
       {
@@ -52,7 +68,7 @@ export default function EditOptions({ opening }) {
     console.log("---dat----a----", x);
     if (x.success) {
       toast.success("Updated");
-      window.location.href = "/opening";
+      window.location.reload();
     } else {
       toast.error(x.message);
     }

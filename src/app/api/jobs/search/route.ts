@@ -1,16 +1,11 @@
-//@ts-nocheck
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   // console.log(req.nextUrl.pathname);
   const searchParams = req.nextUrl.searchParams;
-  const q =
-    searchParams.get("q") === "undefined" ||
-    !searchParams.get("q") ||
-    searchParams.get("q") === "null"
-      ? ""
-      : searchParams.get("q");
+  const searchQ = searchParams.get("q");
+  const q = searchQ && searchQ !== "null" && searchQ !== "undefined" ? searchQ : "";
   const jt = searchParams.get("jt");
   const rem = searchParams.get("rem");
   let remote: undefined | boolean = undefined;

@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
@@ -9,11 +8,15 @@ import { IoMdSend } from "react-icons/io";
 import { UserContext } from "@/app/(group)/layout";
 import { toast } from "sonner";
 import ShowReviews from "./showReview";
-
-export default function ReviewTab({ company }) {
-  const { user } = useContext(UserContext);
+import { review,User,company } from "../../../generated/prisma";
+type ReviewWithUser =review&{
+  user:User
+}
+export default function ReviewTab({ company }:{company:company}) {
+  const context = useContext(UserContext);
+  const user = context?.user
   const [review, setReview] = useState("");
-  const [existingReviews, setExistingReviews] = useState([]);
+  const [existingReviews, setExistingReviews] = useState<ReviewWithUser[]>([]);
 
   const fetchReviews = async () => {
     const res = await fetch(
@@ -55,7 +58,7 @@ export default function ReviewTab({ company }) {
   }
 
   return (
-    <Tabs defaultValue="review" className="w-full">
+    <Tabs defaultValue="review" className="w-[80%] min-w-xs">
       <TabsList>
         <TabsTrigger value="openings">Openings</TabsTrigger>
         <TabsTrigger value="review">Review</TabsTrigger>
@@ -70,7 +73,7 @@ export default function ReviewTab({ company }) {
           placeholder="Enter your review"
           value={review}
           onChange={(e) => setReview(e.target.value)}
-          className="w-full my-1"
+          className="w-full my-1 min-w-xs"
         />
         <Button
           onClick={handleClick}

@@ -1,14 +1,11 @@
-// @ts-nocheck
 import AllCompanyCard from "@/components/companycomp/allcompanycard";
-import CompanyCard from "@/components/companycomp/CompanyCard";
 import { Suspense } from "react";
 import { ImSpinner9 } from "react-icons/im";
-
+import { company } from "../../../../generated/prisma";
 export default async function AllCompaniesPage() {
   const res = await fetch("http://localhost:3000/api/company");
   const data = await res.json();
-  const companies = data?.companies || [];
-
+  const companies: company[] = data?.companies || [];
   if (!companies.length) {
     return (
       <div className="h-screen w-screen flex justify-center items-center text-lg text-muted-foreground">

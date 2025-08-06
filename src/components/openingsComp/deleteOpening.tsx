@@ -23,7 +23,7 @@ export default function DeleteOpening({ id }: { id: string }) {
     const res = await data.json();
     if (res.success) {
       toast.success("Deleted");
-      window.location.href = `/openings`;
+      window.location.reload();
     } else {
       toast.error("error");
     }

@@ -1,20 +1,6 @@
-//@ts-nocheck
 import CompanyCard from "@/components/companycomp/CompanyCard";
-import DeleteCompanyButton from "@/components/companycomp/deletecompanybtn";
 import ReviewTab from "@/components/companycomp/reviewcomponent";
-import ShowOpenings from "@/components/openingsComp/showopenings";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
-export default async function Page({ params }) {
+export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
   // console.log("----------------------", typeof id);
   if (id === "undefined")
@@ -38,7 +24,7 @@ export default async function Page({ params }) {
     }
 
     return (
-      <div className="h-full w-full flex flex-col px-40">
+      <div className="h-full w-full flex flex-col ps-5 pe-10 items-center">
         <CompanyCard data={info} />
         <ReviewTab company={info.company} />
       </div>
