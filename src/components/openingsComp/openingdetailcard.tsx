@@ -94,7 +94,7 @@ export default function OpeningDetailCard({ opening }: OpeningType) {
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-t pt-4 gap-4">
         <div>
           <p className="text-sm text-muted-foreground">Company</p>
-          <Button className="h-4">
+          <Button className="h-8 my-2 cursor-pointer">
             <p className="font-medium text-base">
               {opening.company?.company_name || "Unknown"}
             </p>

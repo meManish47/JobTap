@@ -19,7 +19,7 @@ export default function UserDropDown() {
     const res = await fetch("http://localhost:3000/api/logoutroute");
     const x = await res.json();
     if (x.success) {
-      window.location.href = "/login";
+      window.location.href = "/";
     } else {
       toast.error("Try again");
     }
@@ -28,7 +28,7 @@ export default function UserDropDown() {
     <main>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger>
-          <FaUser size={20} />
+          <FaUser size={20} color={user ? "blue" : "crimson"} />
         </DropdownMenuTrigger>
         {user ? (
           <DropdownMenuContent>
@@ -36,15 +36,7 @@ export default function UserDropDown() {
               {user.email}
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {user?.company ? (
-              <DropdownMenuItem
-                onClick={() => {
-                  window.location.href = "/add_job";
-                }}
-              >
-                Add a job
-              </DropdownMenuItem>
-            ) : (
+            {!user?.company && (
               <DropdownMenuItem
                 onClick={() => {
                   window.location.href = "/add_company";

@@ -9,31 +9,26 @@ import {
 import { Badge } from "../ui/badge";
 import { BiLike } from "react-icons/bi";
 import { FaRegCommentDots } from "react-icons/fa";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "@/app/(group)/layout";
 import { MdDelete } from "react-icons/md";
 import { toast } from "sonner";
 import { ImSpinner9 } from "react-icons/im";
-import { review,User } from "../../../generated/prisma";
-type ReviewWithUser =review&{
-  user:User
-}
-export default function ShowReviews({ reviews }: { reviews: ReviewWithUser[] }) {
+import { review, User } from "../../../generated/prisma";
+type ReviewWithUser = review & {
+  user: User;
+};
+export default function ShowReviews({
+  reviews,
+}: {
+  reviews: ReviewWithUser[];
+}) {
   const context = useContext(UserContext);
   const user = context?.user;
   //   console.log("---fnsjkfhkds", reviews);
-  if (!reviews?.length) {
-    return (
-      <div className=" flex flex-col justify-start items-center">
-        <ImSpinner9 className=" animate-spin text-3xl mb-4" />
-        <h2 className="scroll-m-20 pb-2 text-2xl px-4 font-semibold tracking-tight first:mt-0 flex justify-center items-center">
-          Loading...
-        </h2>
-      </div>
-    );
-  }
+  const [loading, setLoading] = useState(true);
 
-  async function handleDelete(id:string) {
+  async function handleDelete(id: string) {
     const res = await fetch(`http://localhost:3000/api/company/reviews/${id}`, {
       method: "DELETE",
     });
@@ -44,6 +39,24 @@ export default function ShowReviews({ reviews }: { reviews: ReviewWithUser[] }) 
     } else {
       toast.success("Something went wrong!");
     }
+  }
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 700);
+  }, []);
+  if (loading) {
+    return (
+      <div className=" flex flex-col justify-start items-center">
+        <ImSpinner9 className=" animate-spin text-3xl mb-4" />
+        <h2 className="scroll-m-20 pb-2 text-2xl px-4 font-semibold tracking-tight first:mt-0 flex justify-center items-center">
+          Loading...
+        </h2>
+      </div>
+    );
+  }
+  if (!reviews?.length) {
+    return <div className="mt-4 text-xl font-semibold">No review here :/</div>;
   }
   return (
     <div className="mt-4 space-y-4">
@@ -62,10 +75,9 @@ export default function ShowReviews({ reviews }: { reviews: ReviewWithUser[] }) 
           </CardContent>
           <CardFooter className="flex gap-12 ms-6 justify-start">
             <div className="flex gap-12">
-              <BiLike size={22} className="text-blue-500 cursor-pointer" />
-              <FaRegCommentDots
+              <BiLike
                 size={22}
-                className="text-green-500 cursor-pointer"
+                className="text-blue-500 cursor-pointer active:text-blue-700"
               />
             </div>
             {user?.id === review?.user?.id && (

@@ -54,7 +54,7 @@ export default function ShowOpenings() {
           return (
             <Card
               key={opening.id}
-              className="bg-black mt-8 max-w-[80%] ms-10 w-80 h-60 flex flex-col justify-between"
+              className=" mt-8 max-w-[80%] ms-10 w-80 h-80 flex flex-col justify-between"
             >
               <CardHeader>
                 <CardTitle>{opening.title}</CardTitle>
