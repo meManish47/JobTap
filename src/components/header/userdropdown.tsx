@@ -28,7 +28,7 @@ export default function UserDropDown() {
     <main>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger>
-          <FaUser size={20} color={user ? "blue" : "crimson"} />
+          <FaUser size={20} color={user ? "green" : "crimson"} />
         </DropdownMenuTrigger>
         {user ? (
           <DropdownMenuContent>

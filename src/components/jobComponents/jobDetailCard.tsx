@@ -75,14 +75,14 @@ export default function JobDetailCard({ job }: JobType) {
           </p>
         </div>
         {
-          <Button
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full cursor-pointer disabled:bg-red-400 disabled:line-through disabled:cursor-not-allowed"
-            disabled={user ? false : true}
-          >
-            <Link href={job.job_apply_link} target="_blank">
-              Apply Now
-            </Link>
-          </Button>
+          // <Button
+          //   className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full cursor-pointer disabled:bg-red-400 disabled:line-through disabled:cursor-not-allowed"
+          //   disabled={user ? false : true}
+          // >
+          //   <Link href={job.job_apply_link} target="_blank">
+          //     Apply Now
+          //   </Link>
+          // </Button>
         }
       </div>
     </Card>

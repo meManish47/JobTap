@@ -4,7 +4,9 @@ import { ImSpinner9 } from "react-icons/im";
 import { company } from "../../../../generated/prisma";
 
 export default async function AllCompaniesPage() {
-  const res = await fetch("http://localhost:3000/api/company");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/company`, {
+    cache: "no-store",
+  });
   const data = await res.json();
   const companies: company[] = data?.companies || [];
   if (!companies.length) {

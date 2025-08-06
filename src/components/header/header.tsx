@@ -6,11 +6,19 @@ import { MdAddBusiness } from "react-icons/md";
 import ThemeToggleButton from "@/components/ui/theme-toggle-button";
 import UserDropDown from "./userdropdown";
 import SearchIcon from "./searchIcon";
-import { User ,company} from "../../../generated/prisma";
-type UserWithCompany = User &{
-  company:company
-}|null
-export default function HeaderComponent({ fromLogin, user }:{fromLogin:boolean,user:UserWithCompany}) {
+import { User, company } from "../../../generated/prisma";
+type UserWithCompany =
+  | (User & {
+      company: company;
+    })
+  | null;
+export default function HeaderComponent({
+  fromLogin,
+  user,
+}: {
+  fromLogin: boolean;
+  user: UserWithCompany;
+}) {
   return (
     <div className="p-2 w-full flex self-end justify-between px-6 pt-4">
       <div className="flex gap-2 justify-center items-center">
@@ -54,9 +62,7 @@ export default function HeaderComponent({ fromLogin, user }:{fromLogin:boolean,u
           </Button>
         </Link>
         <Link href={`/opening`}>
-          <Button variant={"link"} className="cursor-pointer">
-            Openings
-          </Button>
+          <Button className="cursor-pointer">Openings</Button>
         </Link>
         <UserDropDown />
         <div className="hidden sm:block"> {!fromLogin && <JobSearchBar />}</div>
