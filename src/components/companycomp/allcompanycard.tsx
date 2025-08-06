@@ -11,7 +11,7 @@ import Link from "next/link";
 import { company } from "../../../generated/prisma";
 export default function AllCompanyCard({ company }: { company: company }) {
   return (
-    <Card className="bg-[#1e1e20] hover:shadow-xl transition-all duration-300 text-white flex flex-col justify-between h-full">
+    <Card className=" hover:shadow-xl transition-all duration-300 flex flex-col justify-between h-full">
       <CardHeader className="space-y-2">
         <div className="flex items-center gap-3">
           {company.company_logo ? (
@@ -24,7 +24,7 @@ export default function AllCompanyCard({ company }: { company: company }) {
               />
             </div>
           ) : (
-            <div className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-sm font-bold">
+            <div className="w-12 h-12 rounded-full  flex items-center justify-center text-sm font-bold">
               {company.company_name?.[0] || "C"}
             </div>
           )}
@@ -35,7 +35,7 @@ export default function AllCompanyCard({ company }: { company: company }) {
         </div>
       </CardHeader>
 
-      <CardContent className="text-sm text-gray-300 line-clamp-4">
+      <CardContent className="text-sm  line-clamp-4">
         {company.company_desc || "No description provided."}
       </CardContent>
 

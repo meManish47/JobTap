@@ -26,7 +26,6 @@ export default function ShowReviews({
   const context = useContext(UserContext);
   const user = context?.user;
   //   console.log("---fnsjkfhkds", reviews);
-  const [loading, setLoading] = useState(true);
 
   async function handleDelete(id: string) {
     const res = await fetch(`http://localhost:3000/api/company/reviews/${id}`, {
@@ -40,28 +39,11 @@ export default function ShowReviews({
       toast.success("Something went wrong!");
     }
   }
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 700);
-  }, []);
-  if (loading) {
-    return (
-      <div className=" flex flex-col justify-start items-center">
-        <ImSpinner9 className=" animate-spin text-3xl mb-4" />
-        <h2 className="scroll-m-20 pb-2 text-2xl px-4 font-semibold tracking-tight first:mt-0 flex justify-center items-center">
-          Loading...
-        </h2>
-      </div>
-    );
-  }
-  if (!reviews?.length) {
-    return <div className="mt-4 text-xl font-semibold">No review here :/</div>;
-  }
+
   return (
     <div className="mt-4 space-y-4">
       {reviews.map((review) => (
-        <Card key={review?.id} className="bg-[#141416] text-white my-4">
+        <Card key={review?.id} className="  my-4">
           <CardHeader>
             <CardTitle className="text-sm">
               <Badge className="bg-blue-700 text-white">

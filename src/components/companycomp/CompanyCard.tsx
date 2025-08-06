@@ -33,7 +33,6 @@ export default function CompanyCard({ data }: CompanyData) {
     <div className="h-full w-full flex items-start mb-4  justify-center bg-gradient-to-br from-gray-100 to-gray-200 dark:from-[#09090B] dark:to-[#09090B] px-4">
       <Card className="max-w-2xl w-full  shadow-xl  p-6 rounded-xl flex flex-col justify-between min-w-xs">
         <CardHeader className="flex flex-col items-center gap-4">
-
           <div className="w-24 h-24 rounded-full overflow-hidden border bg-white shadow">
             <Image
               src={company?.company_logo}
@@ -64,7 +63,7 @@ export default function CompanyCard({ data }: CompanyData) {
           >
             Role: {owner?.role}
           </Badge>
-          <div className="flex gap-2">
+          <div className="flex gap-2 h-9">
             <DeleteCompanyButton id={company.id} owner={owner} />
             <AddOpeningButton id={company.id} owner={owner} />
           </div>

@@ -17,18 +17,20 @@ export default function ReviewTab({ company }:{company:company}) {
   const user = context?.user
   const [review, setReview] = useState("");
   const [existingReviews, setExistingReviews] = useState<ReviewWithUser[]>([]);
-
+const [loading,setLoading] =useState(false)
   const fetchReviews = async () => {
+    setLoading(true)
     const res = await fetch(
       `http://localhost:3000/api/company/reviews/${company.id}`
     );
     const x = await res.json();
     if (x.success) setExistingReviews(x.reviews);
     else setExistingReviews([]);
+    setLoading(false)
   };
 
   useEffect(() => {
-    fetchReviews();
+     fetchReviews();
   }, []);
 
   async function handleClick() {
