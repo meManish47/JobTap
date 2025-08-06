@@ -16,7 +16,7 @@ export default function UserDropDown() {
   const context = useContext(UserContext);
   const user = context?.user;
   async function handleLogout() {
-    const res = await fetch("http://localhost:3000/api/logoutroute");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logoutroute`);
     const x = await res.json();
     if (x.success) {
       window.location.href = "/";

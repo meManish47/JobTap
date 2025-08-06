@@ -28,7 +28,7 @@ export default function ShowReviews({
   //   console.log("---fnsjkfhkds", reviews);
 
   async function handleDelete(id: string) {
-    const res = await fetch(`http://localhost:3000/api/company/reviews/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/company/reviews/${id}`, {
       method: "DELETE",
     });
     const x = await res.json();

@@ -20,7 +20,7 @@ import { jobs } from "../../../generated/prisma";
 export default function PaginationComponent({
   search,
 }: {
-  search: { searchVal: string; jobtype: string; remote: boolean |undefined };
+  search: { searchVal: string; jobtype: string; remote: boolean | undefined };
 }) {
   const searchVal = search.searchVal;
   const jobtype = search.jobtype;
@@ -35,7 +35,7 @@ export default function PaginationComponent({
     async function fetchJobs() {
       // const result = await getAllJobsFromDb(searchVal, jobtype, remote);
       const result = await fetch(
-        `http://localhost:3000/api/jobs/search?q=${searchVal}&jt=${jobtype}&rem=${remote}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/jobs/search?q=${searchVal}&jt=${jobtype}&rem=${remote}`
       );
       const data = await result.json();
       setJobs(data.jobs || []);

@@ -58,7 +58,7 @@ export default function EditOptions({ opening }: OpeningType) {
     //console.log({ ...data, id });
     const dataToAdd = { ...data, companyId: opening.company?.id };
     const res = await fetch(
-      `http://localhost:3000/api/company/opening/${opening.id}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/company/opening/${opening.id}`,
       {
         method: "POST",
         body: JSON.stringify(dataToAdd),

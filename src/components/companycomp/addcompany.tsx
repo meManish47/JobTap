@@ -28,7 +28,7 @@ export default function AddCompanyForm() {
       company_desc: description,
       company_logo: logo,
     };
-    const res = await fetch("http://localhost:3000/api/company", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/company`, {
       method: "POST",
       body: JSON.stringify(data),
     });

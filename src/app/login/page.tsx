@@ -20,7 +20,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const router = useRouter();
   async function handleClick() {
-    const res = await fetch("http://localhost:3000/api/loginroute", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/loginroute`, {
       method: "POST",
       body: JSON.stringify({
         email,

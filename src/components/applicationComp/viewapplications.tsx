@@ -46,7 +46,7 @@ export default function ViewApplicants({ opening }: OpeningType) {
     async function getApplicants() {
       setLoading(true);
       const res = await fetch(
-        `http://localhost:3000/api/company/opening/applicants/${opening?.id}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/company/opening/applicants/${opening?.id}`
       );
       const x = await res.json();
       if (x.success) {

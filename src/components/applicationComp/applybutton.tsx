@@ -11,7 +11,7 @@ export default function ApplyButton({ opening }: { opening: openings }) {
   async function handleApply() {
     setLoading(true);
     const res = await fetch(
-      `http://localhost:3000/api/company/opening/${opening.id}/apply`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/company/opening/${opening.id}/apply`
     );
     const x = await res.json();
     if (x.success) {

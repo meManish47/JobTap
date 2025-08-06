@@ -1,4 +1,3 @@
-
 "use client";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,13 +17,10 @@ import { useContext, useState } from "react";
 import { toast } from "sonner";
 import { UserContext } from "@/app/(group)/layout";
 import { User } from "../../../generated/prisma";
-type IdwithOwner=
-{id:string,
-  owner:User
-}
-export default function AddOpeningButton({ id, owner }:IdwithOwner) {
-  const context = useContext(UserContext)
-  const user = context?.user
+type IdwithOwner = { id: string; owner: User };
+export default function AddOpeningButton({ id, owner }: IdwithOwner) {
+  const context = useContext(UserContext);
+  const user = context?.user;
   const [title, setTitle] = useState("");
   const [employmentType, setEmployementType] = useState("");
   const [description, setDescription] = useState("");
@@ -41,10 +37,13 @@ export default function AddOpeningButton({ id, owner }:IdwithOwner) {
     };
     //console.log({ ...data, id });
     const dataToAdd = { ...data, companyId: id };
-    const res = await fetch("http://localhost:3000/api/company/opening", {
-      method: "POST",
-      body: JSON.stringify(dataToAdd),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/company/opening`,
+      {
+        method: "POST",
+        body: JSON.stringify(dataToAdd),
+      }
+    );
     const x = await res.json();
     if (x.success) {
       toast.success("Created successfulyy!");

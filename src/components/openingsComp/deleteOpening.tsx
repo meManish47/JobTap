@@ -15,7 +15,7 @@ import { toast } from "sonner";
 export default function DeleteOpening({ id }: { id: string }) {
   async function handleDelete() {
     const data = await fetch(
-      `http://localhost:3000/api/company/opening/${id}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/company/opening/${id}`,
       {
         method: "DELETE",
       }

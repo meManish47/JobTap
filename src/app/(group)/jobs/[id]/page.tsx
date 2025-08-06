@@ -8,7 +8,12 @@ export default async function Page({
 }) {
   const { id } = await params;
   console.log(id);
-  const data = await fetch(`http://localhost:3000/api/jobs/${id}`);
+  const data = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/jobs/${id}`,
+    {
+      cache: "no-store",
+    }
+  );
   const res = await data.json();
   console.log(res);
   if (!res?.success) notFound();

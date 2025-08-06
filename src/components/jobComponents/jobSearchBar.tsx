@@ -25,7 +25,7 @@ export default function JobSearchBar() {
   useEffect(() => {
     async function getSugg() {
       const res = await fetch(
-        `http://localhost:3000/api/jobs/suggestions?q=${inputVal}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/jobs/suggestions?q=${inputVal}`
       );
       const data = await res.json();
       setSuggestions(data.suggestions);

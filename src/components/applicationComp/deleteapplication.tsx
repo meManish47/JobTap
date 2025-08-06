@@ -14,7 +14,7 @@ export default function DeleteApplication({
   const user = context?.user;
   async function handleDelete() {
     const res = await fetch(
-      `http://localhost:3000/api/company/opening/applicants/${id}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/company/opening/applicants/${id}`,
       {
         method: "DELETE",
       }

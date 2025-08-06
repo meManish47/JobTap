@@ -22,12 +22,12 @@ export default function ShowOpeningsOfCompany({ id }: { id: string }) {
   const [openings, setOpenings] = useState<OpeningWithCompany[]>([]);
   useEffect(() => {
     async function getOpen() {
-      const openRes = await fetch("http://localhost:3000/api/company/opening");
+      const openRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/company/opening`);
       const x = await openRes.json();
       if (x.success) {
-        console.log("------------", x.open);
+        // console.log("------------", x.open);
         setOpenings(x.open);
-        console.log(openings);
+        // console.log(openings);
       } else {
         setOpenings([]);
       }

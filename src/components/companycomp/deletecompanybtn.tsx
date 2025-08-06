@@ -29,7 +29,7 @@ export default function DeleteCompanyButton({ id, owner }:IdwithOwner) {
   const user = context?.user
   const router = useRouter();
   async function handleClick() {
-    const data = await fetch(`http://localhost:3000/api/company/${id}`, {
+    const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/company/${id}`, {
       method: "DELETE",
     });
     const res = await data.json();
