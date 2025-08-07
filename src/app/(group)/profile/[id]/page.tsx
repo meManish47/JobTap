@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { company, User } from "../../../../../generated/prisma";
 import ProfileCompanyCard from "@/components/profileComp/profileCompanycard";
+import ProfileShowApplicationsComponent from "@/components/profileComp/profileShowApplication";
 type CompanyWithOwner = {
   company: company;
   owner: User;
@@ -62,10 +63,9 @@ export default function ProfilePage() {
           <Card>
             <CardHeader>
               <CardTitle>Your Applications</CardTitle>
-              
             </CardHeader>
             <CardContent>
-              <></>
+              <ProfileShowApplicationsComponent id={user.id} />
             </CardContent>
           </Card>
         </div>

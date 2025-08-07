@@ -17,10 +17,6 @@ export async function getUserFromCookies() {
       token,
       process.env.JWT_SECRET_KEY as string
     ) as string;
-    // console.log("--------------", decoded);
-    // console.log("--------------", typeof decoded);
-    // console.log("--------------", decoded.id);
-    // console.log("--------------", typeof decoded.id);
     const user = await prismaClient.user.findUnique({
       where: {
         id: decoded,

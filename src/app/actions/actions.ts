@@ -1,3 +1,4 @@
+import prismaClient from "@/services/prisma";
 import { cookies } from "next/headers";
 
 export async function getJobs() {
