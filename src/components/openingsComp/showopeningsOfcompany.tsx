@@ -14,9 +14,11 @@ import { Button } from "../ui/button";
 import EditOptions from "./editoptions";
 import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
-import { openings, company } from "../../../generated/prisma";
+import { openings, company, saved } from "../../../generated/prisma";
+import { OpeningsTypeWithCmpanyNSaved } from "./showopenings";
 type OpeningWithCompany = openings & {
   company: company;
+  saved: saved[];
 };
 export default function ShowOpeningsOfCompany({ id }: { id: string }) {
   const [openings, setOpenings] = useState<OpeningWithCompany[]>([]);
@@ -36,6 +38,17 @@ export default function ShowOpeningsOfCompany({ id }: { id: string }) {
     }
     getOpen();
   }, []);
+
+  function handleEdit(
+    updatedOpening: OpeningsTypeWithCmpanyNSaved,
+    id: string
+  ) {
+    setOpenings((prev) =>
+      prev.map((item) =>
+        item.id === updatedOpening.id ? updatedOpening : item
+      )
+    );
+  }
 
   return (
     <div className="flex h-full w-full flex-wrap gap-4">
@@ -59,7 +72,7 @@ export default function ShowOpeningsOfCompany({ id }: { id: string }) {
                   {opening.employment_type}
                 </Badge>
                 {/* EditOptions */}
-                <EditOptions opening={opening} />
+                <EditOptions opening={opening} handleEdit={handleEdit} />
               </CardAction>
             </CardHeader>
 

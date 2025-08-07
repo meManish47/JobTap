@@ -5,7 +5,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const p = await params
+  const p = await params;
   const companyId = p.id;
   try {
     const reviews = await prismaClient.review.findMany({
@@ -31,7 +31,7 @@ export async function GET(
   } catch (err) {
     return NextResponse.json({
       success: false,
-      
+
       message: (err as Error).message,
     });
   }
@@ -41,16 +41,29 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const {id} = await params
+  const { id } = await params;
   try {
-    await prismaClient.review.delete({
+    const deletedReview = await prismaClient.review.delete({
       where: {
         id,
       },
     });
-    return NextResponse.json({
-      success: true,
-    });
+    if (deletedReview) {
+      const reviews = await prismaClient.review.findMany({
+        where: {
+          companyId: deletedReview.companyId,
+        },
+        include: {
+          company: true,
+          user: true,
+        },
+      });
+
+      return NextResponse.json({
+        success: true,
+        reviews
+      });
+    }
   } catch (err) {
     return NextResponse.json({
       success: false,

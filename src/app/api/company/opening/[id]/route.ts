@@ -39,6 +39,10 @@ export async function POST(
         id,
       },
       data: body,
+      include: {
+        company: true,
+        saved: true,
+      },
     });
     if (updatedOpening) {
       return NextResponse.json({

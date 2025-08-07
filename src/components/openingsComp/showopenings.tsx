@@ -17,12 +17,12 @@ import { FaArrowRight } from "react-icons/fa";
 import { openings, company, saved } from "../../../generated/prisma";
 import { ImSpinner9 } from "react-icons/im";
 import BookmarkComponent from "./bookmark";
-type OpeningsTypeWithCmpany = openings & {
+export type OpeningsTypeWithCmpanyNSaved = openings & {
   company: company;
   saved: saved[];
 };
 export default function ShowOpenings() {
-  const [openings, setOpenings] = useState<OpeningsTypeWithCmpany[]>([]);
+  const [openings, setOpenings] = useState<OpeningsTypeWithCmpanyNSaved[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -38,7 +38,16 @@ export default function ShowOpenings() {
     }
     getOpen();
   }, []);
-
+  function handleEdit(
+    updatedOpening: OpeningsTypeWithCmpanyNSaved,
+    id: string,
+  ) {
+    setOpenings((prev) =>
+      prev.map((item) =>
+        item.id === updatedOpening.id ? updatedOpening : item
+      )
+    );
+  }
   if (loading) {
     return (
       <div className="h-screen flex flex-col justify-center items-center w-screen">
@@ -67,7 +76,7 @@ export default function ShowOpenings() {
               >
                 {opening.employment_type}
               </Badge>
-              <EditOptions opening={opening} />
+              <EditOptions opening={opening}  handleEdit={handleEdit}/>
             </CardAction>
           </CardHeader>
           <CardContent className="line-clamp-4 text-sm  md:text-base">

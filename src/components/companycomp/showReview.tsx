@@ -14,44 +14,50 @@ import { UserContext } from "@/app/(group)/layout";
 import { MdDelete } from "react-icons/md";
 import { toast } from "sonner";
 import { ImSpinner9 } from "react-icons/im";
-import { review, User } from "../../../generated/prisma";
+import { company, review, User } from "../../../generated/prisma";
 import { Separator } from "../ui/separator";
-type ReviewWithUser = review & {
+// type ReviewWithUser = review & {
+//   user: User;
+// };
+type ReviewWithUserNCompany = review & {
   user: User;
+  company: company;
 };
 export default function ShowReviews({
   reviews,
 }: {
-  reviews: ReviewWithUser[];
+  reviews: ReviewWithUserNCompany[];
 }) {
+  if (!reviews.length) return null;
+  const [reveiwsArr, setReviewsArr] =
+    useState<ReviewWithUserNCompany[]>(reviews);
+  useEffect(() => {
+    setReviewsArr(reviews);
+  }, [reviews]),
+    console.log("state wali array---", reveiwsArr);
   const context = useContext(UserContext);
   const user = context?.user;
-  //   console.log("---fnsjkfhkds", reviews);
 
   async function handleDelete(id: string) {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/company/reviews/${id}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const res = await fetch(`/api/company/reviews/${id}`, {
+      method: "DELETE",
+    });
     const x = await res.json();
     if (x.success) {
       toast.success("Deleted");
-      window.location.reload();
+      // console.log("After prisma", x.reviews);
+      setReviewsArr(x.reviews);
     } else {
       toast.success("Something went wrong!");
     }
   }
-
   return (
     <div className="mt-4 space-y-4">
-      {reviews.map((review) => (
+      {reveiwsArr.map((review) => (
         <Card key={review?.id} className=" mb-4">
           <CardHeader>
             <CardTitle className="text-sm">
               <Badge className="bg-blue-700 text-white">
-                {" "}
                 {review?.user?.email || "Unknown"}
               </Badge>
             </CardTitle>

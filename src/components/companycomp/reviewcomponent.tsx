@@ -9,20 +9,21 @@ import { UserContext } from "@/app/(group)/layout";
 import { toast } from "sonner";
 import ShowReviews from "./showReview";
 import { review, User, company } from "../../../generated/prisma";
-type ReviewWithUser = review & {
+type ReviewWithUserNCompany = review & {
   user: User;
+  company: company;
 };
 export default function ReviewTab({ company }: { company: company }) {
   const context = useContext(UserContext);
   const user = context?.user;
   const [review, setReview] = useState("");
-  const [existingReviews, setExistingReviews] = useState<ReviewWithUser[]>([]);
+  const [existingReviews, setExistingReviews] = useState<
+    ReviewWithUserNCompany[]
+  >([]);
   const [loading, setLoading] = useState(false);
   const fetchReviews = async () => {
     setLoading(true);
-    const res = await fetch(
-      `http://localhost:3000/api/company/reviews/${company.id}`
-    );
+    const res = await fetch(`/api/company/reviews/${company.id}`);
     const x = await res.json();
     if (x.success) setExistingReviews(x.reviews);
     else setExistingReviews([]);
@@ -39,21 +40,17 @@ export default function ReviewTab({ company }: { company: company }) {
       return;
     }
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/company/reviews`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          dataToAdd: { content: review },
-          ids: { userId: user?.id, companyId: company.id },
-        }),
-      }
-    );
+    const res = await fetch(`/api/company/reviews`, {
+      method: "POST",
+      body: JSON.stringify({
+        dataToAdd: { content: review },
+        ids: { userId: user?.id, companyId: company.id },
+      }),
+    });
     const x = await res.json();
     if (x.success) {
       toast.success("Review created");
-      setExistingReviews((prev) => [x.review, ...prev]);
+      setExistingReviews((prev) => [...prev, x.reviews]);
       setReview("");
       fetchReviews();
     } else {

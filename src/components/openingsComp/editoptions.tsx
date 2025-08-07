@@ -18,6 +18,7 @@ import { Input } from "../ui/input";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { toast } from "sonner";
 import DeleteOpening from "./deleteOpening";
+import { OpeningsTypeWithCmpanyNSaved } from "./showopenings";
 type OpeningType = {
   opening: {
     id: string;
@@ -34,8 +35,9 @@ type OpeningType = {
       logo?: string;
     };
   };
+  handleEdit: (updatedItem: OpeningsTypeWithCmpanyNSaved, id: string) => void;
 };
-export default function EditOptions({ opening }: OpeningType) {
+export default function EditOptions({ opening, handleEdit }: OpeningType) {
   const context = useContext(UserContext);
   const user = context?.user;
   const [title, setTitle] = useState(opening.title);
@@ -45,7 +47,7 @@ export default function EditOptions({ opening }: OpeningType) {
   const [description, setDescription] = useState(opening.description);
   const [location, setLocation] = useState(opening.location);
   const [salary, setSalary] = useState<number | undefined>(opening.salary);
-  //   console.log(opening, "USRE_______---", user);
+  const [open, setOpen] = useState(false);
   async function handleClick() {
     const data = {
       title,
@@ -54,19 +56,16 @@ export default function EditOptions({ opening }: OpeningType) {
       location,
       salary,
     };
-    //console.log({ ...data, id });
     const dataToAdd = { ...data, companyId: opening.company?.id };
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/company/opening/${opening.id}`,
-      {
-        method: "POST",
-        body: JSON.stringify(dataToAdd),
-      }
-    );
+    const res = await fetch(`/api/company/opening/${opening.id}`, {
+      method: "POST",
+      body: JSON.stringify(dataToAdd),
+    });
     const x = await res.json();
     if (x.success) {
       toast.success("Updated");
-      window.location.reload();
+      handleEdit(x.opening, opening.id);
+      setOpen(false);
     } else {
       toast.error(x.message);
     }
@@ -79,7 +78,7 @@ export default function EditOptions({ opening }: OpeningType) {
 
   return (
     <div className="flex">
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <form>
           <DialogTrigger asChild>
             <Button className="h-6 w-max cursor-pointer" variant={"ghost"}>
