@@ -8,29 +8,29 @@ import { IoMdSend } from "react-icons/io";
 import { UserContext } from "@/app/(group)/layout";
 import { toast } from "sonner";
 import ShowReviews from "./showReview";
-import { review,User,company } from "../../../generated/prisma";
-type ReviewWithUser =review&{
-  user:User
-}
-export default function ReviewTab({ company }:{company:company}) {
+import { review, User, company } from "../../../generated/prisma";
+type ReviewWithUser = review & {
+  user: User;
+};
+export default function ReviewTab({ company }: { company: company }) {
   const context = useContext(UserContext);
-  const user = context?.user
+  const user = context?.user;
   const [review, setReview] = useState("");
   const [existingReviews, setExistingReviews] = useState<ReviewWithUser[]>([]);
-const [loading,setLoading] =useState(false)
+  const [loading, setLoading] = useState(false);
   const fetchReviews = async () => {
-    setLoading(true)
+    setLoading(true);
     const res = await fetch(
       `http://localhost:3000/api/company/reviews/${company.id}`
     );
     const x = await res.json();
     if (x.success) setExistingReviews(x.reviews);
     else setExistingReviews([]);
-    setLoading(false)
+    setLoading(false);
   };
 
   useEffect(() => {
-     fetchReviews();
+    fetchReviews();
   }, []);
 
   async function handleClick() {
@@ -39,14 +39,17 @@ const [loading,setLoading] =useState(false)
       return;
     }
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/company/reviews`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        dataToAdd: { content: review },
-        ids: { userId: user?.id, companyId: company.id },
-      }),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/company/reviews`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          dataToAdd: { content: review },
+          ids: { userId: user?.id, companyId: company.id },
+        }),
+      }
+    );
     const x = await res.json();
     if (x.success) {
       toast.success("Review created");
@@ -60,13 +63,13 @@ const [loading,setLoading] =useState(false)
   }
 
   return (
-    <Tabs defaultValue="review" className="w-[80%] min-w-xs">
+    <Tabs defaultValue="review" className="w-[80%] min-w-xs  pb-20 sm:pb-5">
       <TabsList>
         <TabsTrigger value="openings">Openings</TabsTrigger>
         <TabsTrigger value="review">Review</TabsTrigger>
       </TabsList>
 
-      <TabsContent value="openings">
+      <TabsContent value="openings" className="">
         <ShowOpeningsOfCompany id={company.id} />
       </TabsContent>
 

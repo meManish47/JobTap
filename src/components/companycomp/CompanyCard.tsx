@@ -30,7 +30,7 @@ type CompanyData = {
 export default function CompanyCard({ data }: CompanyData) {
   const { company, owner } = data;
   return (
-    <div className="h-full w-full flex items-start mb-4  justify-center bg-gradient-to-br from-gray-100 to-gray-200 dark:from-[#09090B] dark:to-[#09090B] px-4">
+    <div className="h-max w-full flex items-start mb-4  justify-center  px-4">
       <Card className="max-w-2xl w-full  shadow-xl  p-6 rounded-xl flex flex-col justify-between min-w-xs">
         <CardHeader className="flex flex-col items-center gap-4">
           <div className="w-24 h-24 rounded-full overflow-hidden border bg-white shadow">
