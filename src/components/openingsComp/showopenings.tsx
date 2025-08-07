@@ -39,19 +39,7 @@ export default function ShowOpenings() {
     getOpen();
   }, []);
 
-  
-  const handleBookmark = (openingId: string) => {
-    setOpenings((prev) =>
-      prev.map((opening) =>
-        opening.id === openingId
-          ? {
-              ...opening,
-              saved: [{ id: "temp-id", userId: "temp", openingId }],
-            } 
-          : opening
-      )
-    );
-  };
+ 
 
   if (loading) {
     return (
@@ -65,7 +53,7 @@ export default function ShowOpenings() {
   }
 
   return (
-    <div className="flex h-full w-full flex-wrap px-4">
+    <div className="flex h-[100dvh] w-full flex-wrap px-4">
       {openings.map((opening) => (
         <Card
           key={opening.id}
@@ -84,8 +72,13 @@ export default function ShowOpenings() {
               <EditOptions opening={opening} />
             </CardAction>
           </CardHeader>
-          <CardContent>
-            <p>{opening.description}</p>
+          <CardContent className="line-clamp-4">
+            <p>
+              {opening.description} Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Ullam est id fuga distinctio tempore!
+              Accusantium odio animi maiores possimus magni aliquam harum vel
+              qui, minus nihil reprehenderit sequi obcaecati nesciunt!
+            </p>
           </CardContent>
           <CardFooter className="flex justify-between gap-4">
             <div>
@@ -106,7 +99,6 @@ export default function ShowOpenings() {
               <BookmarkComponent
                 opening={opening}
                 isSaved={Boolean(opening.saved.length)}
-                onBookmark={handleBookmark} 
               />
               <Link href={`/opening/${opening.id}`}>
                 <Button className="w-full h-full flex items-center justify-center text-blue-600 hover:text-blue-800 transition-colors duration-200 cursor-pointer">

@@ -41,7 +41,7 @@ export default function Page() {
   }
 
   return (
-    <div className="h-full w-full flex flex-col ps-5 pe-10 items-center">
+    <div className="h-[100dvh] w-full flex flex-col ps-5 pe-5 pb-15 items-center">
       <CompanyCard data={info} />
       <ReviewTab company={info.company} />
     </div>

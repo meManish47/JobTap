@@ -28,9 +28,12 @@ export default function ShowReviews({
   //   console.log("---fnsjkfhkds", reviews);
 
   async function handleDelete(id: string) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/company/reviews/${id}`, {
-      method: "DELETE",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/company/reviews/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
     const x = await res.json();
     if (x.success) {
       toast.success("Deleted");
@@ -43,7 +46,7 @@ export default function ShowReviews({
   return (
     <div className="mt-4 space-y-4">
       {reviews.map((review) => (
-        <Card key={review?.id} className="  my-4">
+        <Card key={review?.id} className=" my-4">
           <CardHeader>
             <CardTitle className="text-sm">
               <Badge className="bg-blue-700 text-white">
