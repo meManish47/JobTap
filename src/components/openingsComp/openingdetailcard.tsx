@@ -51,13 +51,13 @@ export default function OpeningDetailCard({ opening }: OpeningType) {
     );
   }
   return (
-    <Card className="h-[70%] w-[90%] px-6 overflow-hidden flex flex-col justify-between min-w-xs ms-10">
+    <Card className="h-[70%] w-[90%] px-6 overflow-hidden flex flex-col justify-between min-w-xs ms-0 sm:ms-10">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-blue-700 w-full flex justify-between">
             {opening.title}
           </h1>
-          <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2 mt-2 text-sm ">
             <Badge className="bg-blue-600 text-white">
               {opening.employment_type}
             </Badge>
@@ -86,9 +86,7 @@ export default function OpeningDetailCard({ opening }: OpeningType) {
       </div>
 
       <div className="flex-1 my-4 overflow-y-auto pr-2">
-        <h2 className="text-lg font-semibold mb-1 text-muted-foreground">
-          Description
-        </h2>
+        <h2 className="text-lg font-semibold mb-1 ">Description</h2>
         <p className="text-sm/tight leading-6 text-gray-500 whitespace-pre-wrap">
           {opening.description}
         </p>
@@ -97,7 +95,7 @@ export default function OpeningDetailCard({ opening }: OpeningType) {
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-t pt-4 gap-4">
         <div>
           <p className="text-sm text-muted-foreground">Company</p>
-          <Button className="h-8 my-2 cursor-pointer">
+          <Button className="h-8 my-2 cursor-pointer w-16" variant={"link"}>
             <p className="font-medium text-base">
               {opening.company?.company_name || "Unknown"}
             </p>

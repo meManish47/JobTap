@@ -11,7 +11,7 @@ export default async function Home({
   const remote =
     searchP.rem === "true" ? true : searchP.rem === "false" ? false : undefined;
   return (
-    <main className="h-full w-screen flex flex-col ">
+    <main className="h-full w-screen flex flex-col">
       {/* <StarBack /> */}
       {/* <HeaderComponent fromLogin={false} /> */}
       <div className="h-[20%] w-full flex justify-center items-center  ">
@@ -19,7 +19,7 @@ export default async function Home({
           JobTap
         </h1>
       </div>
-      <div className=" h-[110vh]">
+      <div className=" h-[10dvh] ">
         <PaginationComponent search={{ searchVal, jobtype, remote }} />
       </div>
     </main>

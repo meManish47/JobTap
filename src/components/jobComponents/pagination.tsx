@@ -145,12 +145,13 @@ export default function PaginationComponent({
     );
   }
   return (
-    <div className="h-full w-screen flex  items-start gap-6 p-4 mt-4 relative ">
+    <div className="h-full w-full  flex  items-start gap-6 p-4 mt-2 relative mb-20">
       <div className="w-80   sticky top-10 hidden sm:block">
         <SideBar />
       </div>
-      <div className="w-30 ps-8 sticky top-10 block sm:hidden ">
+      <div className="max-w-5  sticky top-10 block sm:hidden ">
         <div
+          className=" max-w-8"
           onClick={() => {
             setSidebarOpen((prev) => !prev);
           }}
@@ -163,7 +164,7 @@ export default function PaginationComponent({
           )}
         </div>
       </div>
-      <div className="flex flex-wrap justify-start gap-6 w-full ">
+      <div className="flex flex-wrap justify-start gap-6 w-full  pb-20 sm:pb-0">
         {jobsArray.map((job) => (
           <div key={job.id}>
             <JobCard job={job} search={searchVal} />

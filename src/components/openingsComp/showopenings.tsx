@@ -39,8 +39,6 @@ export default function ShowOpenings() {
     getOpen();
   }, []);
 
- 
-
   if (loading) {
     return (
       <div className="h-screen flex flex-col justify-center items-center w-screen">
@@ -53,11 +51,11 @@ export default function ShowOpenings() {
   }
 
   return (
-    <div className="flex h-[100dvh] w-full flex-wrap px-4">
+    <div className="flex   w-full flex-wrap px-0 sm:px-4  pb-20 sm:pb-0">
       {openings.map((opening) => (
         <Card
           key={opening.id}
-          className="mt-8 max-w-[80%] ms-10 w-80 h-80 flex flex-col justify-between"
+          className="mt-8 max-w-[80%] ms-10 w-80 max-h-80 flex flex-col justify-between "
         >
           <CardHeader>
             <CardTitle>{opening.title}</CardTitle>

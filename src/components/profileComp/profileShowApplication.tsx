@@ -59,7 +59,7 @@ export default function ProfileShowApplicationsComponent({ id }: Props) {
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {applications.map((application) => (
-          <Card key={application.id}>
+          <Card key={application.id} className="flex flex-col justify-between">
             <CardHeader>
               <CardTitle className="text-base sm:text-lg">
                 {application.openings!.title}

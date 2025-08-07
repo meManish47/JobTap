@@ -8,16 +8,19 @@ export default async function Page({
 }) {
   const { id } = await params;
   // console.log(id);
-  const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/company/opening/${id}`, {
-    cache: "no-store",
-  });
+  const data = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/company/opening/${id}`,
+    {
+      cache: "no-store",
+    }
+  );
   const res = await data.json();
   // console.log(res);
   if (!res?.success) notFound();
   const opening = res.opening;
   console.log("opning", opening);
   return (
-    <div className="h-screen w-screen flex p-10 justify-center items-start pb-28 min-w-sm ">
+    <div className="h-screen w-screen flex py-10 justify-center items-start pb-28 min-w-sm  ">
       <OpeningDetailCard opening={opening} />
     </div>
   );

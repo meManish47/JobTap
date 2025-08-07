@@ -3,7 +3,7 @@ import StarBack from "@/components/starbackground";
 
 export default function Page() {
   return (
-    <main className="h-screen w-screen flex flex-wrap ">
+    <main className="h-screen w-screen flex flex-wrap overflow-y-auto overflow-x-hidden">
       {/* <HeaderComponent fromLogin={false} /> */}
       <div className="h-[10%] w-full flex justify-center items-center  ">
         <h1 className="scroll-m-20 text-center text-5xl z-10 font-extrabold tracking-wide text-balance">
