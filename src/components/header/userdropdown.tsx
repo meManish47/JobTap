@@ -16,7 +16,7 @@ export default function UserDropDown() {
   const context = useContext(UserContext);
   const user = context?.user;
   async function handleLogout() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logoutroute`);
+    const res = await fetch(`/api/logoutroute`);
     const x = await res.json();
     if (x.success) {
       window.location.href = "/";
@@ -36,6 +36,13 @@ export default function UserDropDown() {
               {user.email}
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={() => {
+                window.location.href = `/profile/${user.id}`;
+              }}
+            >
+              Profile
+            </DropdownMenuItem>
             {!user?.company && (
               <DropdownMenuItem
                 onClick={() => {

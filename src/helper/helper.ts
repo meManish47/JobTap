@@ -27,6 +27,7 @@ export async function getUserFromCookies() {
       },
       include: {
         company: true,
+        saved: true,
       },
       omit: {
         password: true,

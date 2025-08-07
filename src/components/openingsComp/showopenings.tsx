@@ -16,6 +16,7 @@ import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 import { openings, company } from "../../../generated/prisma";
 import { ImSpinner9 } from "react-icons/im";
+import BookmarkComponent from "./bookmark";
 type OpeningsTypeWithCmpany = openings & {
   company: company;
 };
@@ -75,22 +76,29 @@ export default function ShowOpenings() {
               <CardContent>
                 <p>{opening.description}</p>
               </CardContent>
-              <CardFooter className="flex justify-between">
-                <p>₹{opening.salary}</p>
-                <Button
-                  variant={"outline"}
-                  onClick={() =>
-                    (window.location.href = `/company/${opening?.companyId}`)
-                  }
-                  className="cursor-pointer"
-                >
-                  {opening.company.company_name}
-                </Button>
-                <Link href={`/opening/${opening.id}`}>
-                  <Button className="w-full h-full flex items-center justify-center text-blue-600 hover:text-blue-800 transition-colors duration-200 cursor-pointer">
-                    <FaArrowRight size={22} />
+              <CardFooter className="flex justify-between gap-4">
+                <div className="">
+                  <p className="flex items-center justify-center text-muted-foreground text-sm mb-4">
+                    Salary: ₹{opening.salary}
+                  </p>
+                  <Button
+                    variant={"outline"}
+                    onClick={() =>
+                      (window.location.href = `/company/${opening?.companyId}`)
+                    }
+                    className="cursor-pointer"
+                  >
+                    {opening.company.company_name}
                   </Button>
-                </Link>
+                </div>
+                <div className="flex flex-col  items-center ">
+                  <BookmarkComponent opening={opening}/>
+                  <Link href={`/opening/${opening.id}`}>
+                    <Button className="w-full h-full flex items-center justify-center text-blue-600 hover:text-blue-800 transition-colors duration-200 cursor-pointer">
+                      <FaArrowRight size={22} />
+                    </Button>
+                  </Link>
+                </div>
               </CardFooter>
             </Card>
           );

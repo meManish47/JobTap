@@ -4,12 +4,8 @@ import HeaderComponent from "@/components/header/header";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { createContext, useEffect, useState } from "react";
 import { Toaster } from "sonner";
-import { company } from "../../../generated/prisma";
-export type UserType = {
-  id: string;
-  email: string;
-  role: string;
-  password: string;
+import { company, saved, User } from "../../../generated/prisma";
+type UserType = User & {
   company: {
     id: string;
     owner_id: string;
@@ -17,11 +13,18 @@ export type UserType = {
     company_logo: string;
     company_desc: string;
   };
+  saved: {
+    id: string;
+    userId: string;
+    openingId: string;
+  };
 };
 
 export type UserContextType = {
-  user: (UserType & { company: company }) | null;
-  setUser: (user: (UserType & { company: company }) | null) => void;
+  user: (UserType & { company: company; saved: saved }) | null;
+  setUser: (
+    user: (UserType & { company: company; saved: saved }) | null
+  ) => void;
 };
 export const UserContext = createContext<UserContextType | null>(null);
 export default function Laytout({
@@ -50,7 +53,7 @@ export default function Laytout({
       >
         <HeaderComponent fromLogin={false} user={user} />
         {children}
-        <Toaster />
+        <Toaster richColors/>
       </UserContext.Provider>
     </div>
   );
