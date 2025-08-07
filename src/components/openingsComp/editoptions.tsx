@@ -18,7 +18,6 @@ import { Input } from "../ui/input";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { toast } from "sonner";
 import DeleteOpening from "./deleteOpening";
-import { openings, company } from "../../../generated/prisma";
 type OpeningType = {
   opening: {
     id: string;
@@ -65,7 +64,6 @@ export default function EditOptions({ opening }: OpeningType) {
       }
     );
     const x = await res.json();
-    console.log("---dat----a----", x);
     if (x.success) {
       toast.success("Updated");
       window.location.reload();
@@ -84,7 +82,7 @@ export default function EditOptions({ opening }: OpeningType) {
       <Dialog>
         <form>
           <DialogTrigger asChild>
-            <Button className="h-6 w-max" variant={"ghost"}>
+            <Button className="h-6 w-max cursor-pointer" variant={"ghost"}>
               <TbEdit size={14} />
             </Button>
           </DialogTrigger>

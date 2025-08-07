@@ -44,7 +44,7 @@ export default function Laytout({
     getUser();
   }, []);
   return (
-    <div className="overflow-x-hidden h-screen w-screen">
+    <div className="overflow-x-hidden h-screen w-screen" suppressHydrationWarning>
       <UserContext.Provider
         value={{
           user,

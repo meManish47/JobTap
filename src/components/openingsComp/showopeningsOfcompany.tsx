@@ -22,7 +22,9 @@ export default function ShowOpeningsOfCompany({ id }: { id: string }) {
   const [openings, setOpenings] = useState<OpeningWithCompany[]>([]);
   useEffect(() => {
     async function getOpen() {
-      const openRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/company/opening`);
+      const openRes = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/company/opening`
+      );
       const x = await openRes.json();
       if (x.success) {
         // console.log("------------", x.open);
@@ -36,16 +38,18 @@ export default function ShowOpeningsOfCompany({ id }: { id: string }) {
   }, []);
 
   return (
-    <div className="flex h-full w-full flex-wrap ">
+    <div className="flex h-full w-full flex-wrap gap-4">
       {openings
         .filter((opening) => opening.company?.id === id)
         .map((opening) => (
           <Card
             key={opening.id}
-            className="bg-[#09090B] mt-8 max-w-[80%] ms-2 w-80 h-60 flex flex-col justify-between"
+            className=" max-w-[80%] ms-2 w-80 h-60 flex flex-col justify-between"
           >
             <CardHeader>
-              <CardTitle>{opening.title}</CardTitle>
+              <CardTitle className="text-sm sm:text-xl truncate">
+                {opening.title}
+              </CardTitle>
               <CardDescription>{opening.location}</CardDescription>
               <CardAction className="flex flex-col gap-1 items-end">
                 <Badge
@@ -59,12 +63,17 @@ export default function ShowOpeningsOfCompany({ id }: { id: string }) {
               </CardAction>
             </CardHeader>
 
-            <CardContent>
-              <p>{opening.description}</p>
+            <CardContent className="line-clamp-4 text-xs sm:text-sm">
+              <p>
+                {opening.description} Lorem ipsum dolor sit, amet consectetur
+                adipisicing elit. Blanditiis eaque numquam placeat nostrum
+                labore temporibus natus fugiat ut qui molestiae perferendis quae
+                earum ullam, cumque doloribus est voluptatibus fugit modi.
+              </p>
             </CardContent>
 
             <CardFooter className="flex justify-between">
-              <p>₹{opening.salary}</p>
+              <p className="text-xs sm:text-sm">Salary : ₹{opening.salary}</p>
               <Button variant={"outline"}>
                 {opening.company?.company_name || "Unknown"}
               </Button>

@@ -95,7 +95,10 @@ export default function OpeningDetailCard({ opening }: OpeningType) {
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-t pt-4 gap-4">
         <div>
           <p className="text-sm text-muted-foreground">Company</p>
-          <Button className="h-8 my-2 cursor-pointer w-16" variant={"link"}>
+          <Button
+            className="h-8   cursor-pointer w-16 sm:my-2"
+            variant={"link"}
+          >
             <p className="font-medium text-base">
               {opening.company?.company_name || "Unknown"}
             </p>
@@ -104,7 +107,7 @@ export default function OpeningDetailCard({ opening }: OpeningType) {
             Opening ID: {opening.id}
           </p>
         </div>
-        <div className="flex flex-col gap-2 items-center w-max">
+        <div className="flex justify-between gap-2 items-center w-full sm:flex-col sm:w-max">
           <ApplyButton opening={opening} />
           <EditOptions opening={opening} />
         </div>

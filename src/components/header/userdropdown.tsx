@@ -31,12 +31,13 @@ export default function UserDropDown() {
           <FaUser size={20} color={user ? "green" : "crimson"} />
         </DropdownMenuTrigger>
         {user ? (
-          <DropdownMenuContent>
+          <DropdownMenuContent className="mt-4 me-10">
             <DropdownMenuLabel className="text-sm text-muted-foreground">
               {user.email}
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
+              className="cursor-pointer"
               onClick={() => {
                 window.location.href = `/profile/${user.id}`;
               }}
@@ -45,6 +46,7 @@ export default function UserDropDown() {
             </DropdownMenuItem>
             {!user?.company && (
               <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => {
                   window.location.href = "/add_company";
                 }}
@@ -52,14 +54,20 @@ export default function UserDropDown() {
                 Add a company
               </DropdownMenuItem>
             )}
-            <DropdownMenuItem onClick={handleLogout}>LogOut</DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
+              LogOut
+            </DropdownMenuItem>
           </DropdownMenuContent>
         ) : (
           <DropdownMenuContent>
-            <DropdownMenuItem onClick={() => (window.location.href = "/login")}>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => (window.location.href = "/login")}
+            >
               LogIn
             </DropdownMenuItem>
             <DropdownMenuItem
+              className="cursor-pointer"
               onClick={() => {
                 window.location.href = "/signup";
               }}

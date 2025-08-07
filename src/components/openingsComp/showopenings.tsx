@@ -70,13 +70,8 @@ export default function ShowOpenings() {
               <EditOptions opening={opening} />
             </CardAction>
           </CardHeader>
-          <CardContent className="line-clamp-4">
-            <p>
-              {opening.description} Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Ullam est id fuga distinctio tempore!
-              Accusantium odio animi maiores possimus magni aliquam harum vel
-              qui, minus nihil reprehenderit sequi obcaecati nesciunt!
-            </p>
+          <CardContent className="line-clamp-4 text-sm  md:text-base">
+            <p>{opening.description}</p>
           </CardContent>
           <CardFooter className="flex justify-between gap-4">
             <div>

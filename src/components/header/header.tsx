@@ -21,7 +21,7 @@ export default function HeaderComponent({
   user: UserWithCompany;
 }) {
   return (
-    <div className="p-2 w-full flex self-end justify-between px-6 pt-4">
+    <div className="p-2 w-full flex self-end justify-between px-6 pt-4 ">
       <div className="flex gap-2 justify-center items-center">
         {/* <ModeToggle /> */}
         <ThemeToggleButton />

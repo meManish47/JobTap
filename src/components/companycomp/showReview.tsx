@@ -15,6 +15,7 @@ import { MdDelete } from "react-icons/md";
 import { toast } from "sonner";
 import { ImSpinner9 } from "react-icons/im";
 import { review, User } from "../../../generated/prisma";
+import { Separator } from "../ui/separator";
 type ReviewWithUser = review & {
   user: User;
 };
@@ -46,7 +47,7 @@ export default function ShowReviews({
   return (
     <div className="mt-4 space-y-4">
       {reviews.map((review) => (
-        <Card key={review?.id} className=" my-4">
+        <Card key={review?.id} className=" mb-4">
           <CardHeader>
             <CardTitle className="text-sm">
               <Badge className="bg-blue-700 text-white">
@@ -58,6 +59,7 @@ export default function ShowReviews({
           <CardContent className="text-sm tracking-wider font-medium ms-6">
             {review?.content}
           </CardContent>
+          <Separator />
           <CardFooter className="flex gap-12 ms-6 justify-start">
             <div className="flex gap-12">
               <BiLike

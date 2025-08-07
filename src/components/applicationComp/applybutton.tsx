@@ -24,7 +24,7 @@ export default function ApplyButton({ opening }: { opening: openings }) {
   return (
     <div>
       <Button
-        className="bg-blue-600 hover:bg-blue-700 text-white w-28 px-6 py-2 rounded-full cursor-pointer disabled:bg-red-400 disabled:line-through disabled:cursor-not-allowed"
+        className="bg-blue-600 hover:bg-blue-700 text-white  w-20 text-xs sm:w-28 sm:text-base px-6 py-2 rounded-full cursor-pointer disabled:bg-red-400 disabled:line-through disabled:cursor-not-allowed"
         disabled={!user || !opening.open || loading}
         onClick={handleApply}
       >

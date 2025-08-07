@@ -32,7 +32,7 @@ export default function DeleteOpening({ id }: { id: string }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button className="h-6 w-max" variant={"ghost"}>
+        <Button className="h-6 w-max cursor-pointer" variant={"ghost"}>
           <MdDelete size={18} color="crimson" />
         </Button>
       </AlertDialogTrigger>
