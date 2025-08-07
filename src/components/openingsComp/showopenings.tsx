@@ -39,7 +39,7 @@ export default function ShowOpenings() {
     getOpen();
   }, []);
 
-  // 🆕 Update saved status
+  
   const handleBookmark = (openingId: string) => {
     setOpenings((prev) =>
       prev.map((opening) =>
@@ -47,7 +47,7 @@ export default function ShowOpenings() {
           ? {
               ...opening,
               saved: [{ id: "temp-id", userId: "temp", openingId }],
-            } // dummy saved array
+            } 
           : opening
       )
     );
@@ -106,7 +106,7 @@ export default function ShowOpenings() {
               <BookmarkComponent
                 opening={opening}
                 isSaved={Boolean(opening.saved.length)}
-                onBookmark={handleBookmark} // 🆕
+                onBookmark={handleBookmark} 
               />
               <Link href={`/opening/${opening.id}`}>
                 <Button className="w-full h-full flex items-center justify-center text-blue-600 hover:text-blue-800 transition-colors duration-200 cursor-pointer">

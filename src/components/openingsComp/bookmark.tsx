@@ -13,7 +13,7 @@ export default function BookmarkComponent({
 }: {
   opening: openings;
   isSaved: boolean;
-  onBookmark: (openingId: string) => void; // 🆕 callback to parent
+  onBookmark: (openingId: string) => void;
 }) {
   const [clicked, setClicked] = useState(false);
   const context = useContext(UserContext);
@@ -34,7 +34,7 @@ export default function BookmarkComponent({
     const x = await res.json();
     if (x.success) {
       toast.success(x.message);
-      onBookmark(opening.id); // 🆕 notify parent to update state
+      onBookmark(opening.id);
     } else {
       toast.error(x.message);
     }

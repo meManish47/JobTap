@@ -20,13 +20,16 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const router = useRouter();
   async function handleClick() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/loginroute`, {
-      method: "POST",
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/loginroute`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      }
+    );
     const data = await res.json();
     if (data?.success) {
       toast.success("Successfully Logged In!", { duration: 2000 });
@@ -36,14 +39,14 @@ export default function LoginPage() {
     }
   }
   return (
-    <main className="h-full w-screen flex flex-col pt-20">
+    <main className="h-screen w-screen flex flex-col pt-20 justify-start">
       {/* <HeaderComponent fromLogin={true} /> */}
       <div className="h-[20%] w-full flex justify-center items-center  ">
         <h1 className="scroll-m-20 text-center text-5xl font-extrabold tracking-wide text-balance">
           Login
         </h1>
       </div>
-      <div className="w-screen h-full flex flex-col justify-center items-center mt-20">
+      <div className="w-screen h-full flex flex-col justify-start items-center ">
         <Card className="w-full max-w-sm">
           <CardHeader>
             <CardTitle className="mt-3">Login to your account</CardTitle>

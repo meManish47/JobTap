@@ -37,14 +37,14 @@ export default function Page() {
     }
   }
   return (
-    <main className="h-full w-screen flex flex-col pt-20">
+    <main className="h-screen w-screen flex flex-col pt-20 justify-start">
       {/* <HeaderComponent fromLogin={true} /> */}
       <div className="h-[20%] w-full flex justify-center items-center  ">
         <h1 className="scroll-m-20 text-center text-5xl font-extrabold tracking-wide text-balance">
           SignUp
         </h1>
       </div>
-      <div className="w-screen h-full flex justify-center items-center mt-20">
+      <div className="w-screen h-full flex flex-col justify-start items-center ">
         <Card className="w-full max-w-sm">
           <CardHeader>
             <CardTitle className="mt-3">Enter your details</CardTitle>
