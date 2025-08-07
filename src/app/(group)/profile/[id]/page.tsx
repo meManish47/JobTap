@@ -6,13 +6,14 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../layout";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { company, User } from "../../../../../generated/prisma";
 import ProfileCompanyCard from "@/components/profileComp/profileCompanycard";
 import ProfileShowApplicationsComponent from "@/components/profileComp/profileShowApplication";
+import { ImSpinner9 } from "react-icons/im";
 type CompanyWithOwner = {
   company: company;
   owner: User;
@@ -20,6 +21,24 @@ type CompanyWithOwner = {
 export default function ProfilePage() {
   const context = useContext(UserContext);
   const user = context?.user;
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    if (user) {
+      setLoading(false);
+    }
+  }, [user]);
+
+  if (loading) {
+    return (
+      <div className="h-screen flex flex-col justify-center items-center">
+        <ImSpinner9 className=" animate-spin text-3xl mb-4" />
+        <h2 className="scroll-m-20 pb-2 text-2xl px-4 font-semibold tracking-tight first:mt-0 flex justify-center items-center">
+          Loading...
+        </h2>
+      </div>
+    );
+  }
+
   if (!user) return null;
   const company_data: CompanyWithOwner = { company: user.company, owner: user };
   console.log("Profile page", user);

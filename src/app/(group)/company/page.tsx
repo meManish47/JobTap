@@ -5,16 +5,12 @@ import { company } from "../../../../generated/prisma";
 import prismaClient from "@/services/prisma";
 
 export default async function AllCompaniesPage() {
-  // const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/company`, {
-  //   cache: "no-store",
-  // });
-  // const data = await res.json();
-  // const companies: company[] = data?.companies || [];
-  const companies = await prismaClient.company.findMany({
-    include: {
-      owner: true,
-    },
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/company`, {
+    cache: "no-store",
   });
+  const data = await res.json();
+  const companies: company[] = data?.companies || [];
+
   if (!companies.length) {
     return (
       <div className="h-screen w-screen flex justify-center items-center text-lg text-muted-foreground">
