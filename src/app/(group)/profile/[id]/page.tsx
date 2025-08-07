@@ -41,9 +41,8 @@ export default function ProfilePage() {
 
   if (!user) return null;
   const company_data: CompanyWithOwner = { company: user.company, owner: user };
-  console.log("Profile page", user);
   return (
-    <div className="p-4 sm:p-6 lg:p-10 max-w-7xl mx-auto space-y-6">
+    <div className="p-2 sm:p-6 lg:p-10 max-w-7xl mx-auto space-y-6">
       <Card>
         <CardHeader>
           <CardTitle>Profile Overview</CardTitle>

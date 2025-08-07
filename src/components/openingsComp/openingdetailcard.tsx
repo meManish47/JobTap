@@ -35,6 +35,7 @@ export default function OpeningDetailCard({ opening }: OpeningType) {
 
   const context = useContext(UserContext);
   const user = context?.user;
+  if (!user) return null;
   // console.log("OPENING", opening);
   setTimeout(() => {
     setLoading(false);
@@ -67,7 +68,9 @@ export default function OpeningDetailCard({ opening }: OpeningType) {
           </div>
         </div>
         <CardAction>
-          <ViewApplicants opening={opening} />{" "}
+          {user.company.id === opening.companyId && (
+            <ViewApplicants opening={opening} />
+          )}
         </CardAction>
         {opening.company?.logo && (
           <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border shadow">

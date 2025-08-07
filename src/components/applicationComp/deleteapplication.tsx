@@ -27,9 +27,7 @@ export default function DeleteApplication({
       toast.error("Something went wrong!");
     }
   }
-  if (user?.id !== userId) {
-    return null;
-  }
+
   return (
     <MdDelete
       size={24}

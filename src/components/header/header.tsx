@@ -51,9 +51,6 @@ export default function HeaderComponent({
             <p className="text-xl font-bold font-mono">JT</p>
           </Button>
         </Link>
-        <p className="text-muted-foreground text-sm font-semibold">
-          {user?.role}
-        </p>
       </div>
       <div className="flex gap-6 justify-center items-center">
         <Link href={`/company`}>

@@ -44,7 +44,7 @@ export default function Laytout({
     getUser();
   }, []);
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <UserContext.Provider
         value={{
           user,

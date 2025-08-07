@@ -19,7 +19,7 @@ export async function GET(
   try {
     const existingApplication = await prismaClient.application.findFirst({
       where: {
-        openingsId:openingId,
+        openingsId: openingId,
         userId: user.id,
       },
     });
@@ -27,6 +27,7 @@ export async function GET(
       return NextResponse.json({
         success: false,
         message: "Already applied",
+        hasApplied: true,
       });
     }
     const application = await prismaClient.application.create({

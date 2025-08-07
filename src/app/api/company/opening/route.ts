@@ -37,6 +37,7 @@ export async function GET(req: NextRequest) {
     const openings = await prismaClient.openings.findMany({
       include: {
         company: true,
+        saved: true,
       },
     });
     if (openings) {

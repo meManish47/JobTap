@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { UserContext } from "@/app/(group)/layout";
 import { toast } from "sonner";
@@ -10,9 +10,7 @@ export default function ApplyButton({ opening }: { opening: openings }) {
   const [loading, setLoading] = useState(false);
   async function handleApply() {
     setLoading(true);
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/company/opening/${opening.id}/apply`
-    );
+    const res = await fetch(`/api/company/opening/${opening.id}/apply`);
     const x = await res.json();
     if (x.success) {
       toast.success("Applied successfull");
@@ -24,12 +22,14 @@ export default function ApplyButton({ opening }: { opening: openings }) {
     setLoading(false);
   }
   return (
-    <Button
-      className="bg-blue-600 hover:bg-blue-700 text-white w-28 px-6 py-2 rounded-full cursor-pointer disabled:bg-red-400 disabled:line-through disabled:cursor-not-allowed"
-      disabled={!user || !opening.open || loading}
-      onClick={handleApply}
-    >
-      {loading ? "Wait" : opening.open && user ? "Apply Now" : "Closed"}
-    </Button>
+    <div>
+      <Button
+        className="bg-blue-600 hover:bg-blue-700 text-white w-28 px-6 py-2 rounded-full cursor-pointer disabled:bg-red-400 disabled:line-through disabled:cursor-not-allowed"
+        disabled={!user || !opening.open || loading}
+        onClick={handleApply}
+      >
+        {loading ? "Wait" : opening.open && user ? "Apply Now" : "Closed"}
+      </Button>
+    </div>
   );
 }
