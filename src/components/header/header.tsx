@@ -7,6 +7,7 @@ import ThemeToggleButton from "@/components/ui/theme-toggle-button";
 import UserDropDown from "./userdropdown";
 import SearchIcon from "./searchIcon";
 import { User, company } from "../../../generated/prisma";
+import ComapnyAndOpeningDropdown from "./compNopen";
 type UserWithCompany =
   | (User & {
       company: company;
@@ -53,14 +54,21 @@ export default function HeaderComponent({
         </Link>
       </div>
       <div className="flex gap-6 justify-center items-center">
-        <Link href={`/company`}>
-          <Button variant={"link"} className="cursor-pointer">
-            Companies
-          </Button>
-        </Link>
-        <Link href={`/opening`}>
-          <Button className="cursor-pointer">Openings</Button>
-        </Link>
+        <div>
+          <div className="hidden sm:flex">
+            <Link href={`/company`}>
+              <Button variant={"link"} className="cursor-pointer">
+                Companies
+              </Button>
+            </Link>
+            <Link href={`/opening`}>
+              <Button className="cursor-pointer">Openings</Button>
+            </Link>
+          </div>
+          <div className="block sm:hidden ">
+            <ComapnyAndOpeningDropdown />
+          </div>
+        </div>
         <UserDropDown />
         <div className="hidden sm:block"> {!fromLogin && <JobSearchBar />}</div>
         <SearchIcon />

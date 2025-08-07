@@ -42,7 +42,7 @@ export default function Page() {
       <div className="h-[20%] w-full flex justify-center items-center  ">
         <h1 className="scroll-m-20 text-center text-5xl font-extrabold tracking-wide text-balance">
           SignUp
-        </h1>
+      </h1>
       </div>
       <div className="w-screen h-full flex flex-col justify-start items-center ">
         <Card className="w-full max-w-sm">

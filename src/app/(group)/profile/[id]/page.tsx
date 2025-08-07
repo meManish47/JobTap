@@ -14,6 +14,7 @@ import { company, User } from "../../../../../generated/prisma";
 import ProfileCompanyCard from "@/components/profileComp/profileCompanycard";
 import ProfileShowApplicationsComponent from "@/components/profileComp/profileShowApplication";
 import { ImSpinner9 } from "react-icons/im";
+import ShowProfileSavedOpenings from "@/components/profileComp/profileShowSaved";
 type CompanyWithOwner = {
   company: company;
   owner: User;
@@ -89,20 +90,13 @@ export default function ProfilePage() {
         </div>
 
         <div className="flex-1 lg:max-w-md">
-          <Card className="h-full">
+          <Card className="h-max py-4">
             <CardHeader>
               <CardTitle>Saved Openings</CardTitle>
               <CardDescription>Jobs you’ve bookmarked</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
-                <div className="border rounded-lg p-4">
-                  <h4 className="font-semibold text-lg">Opening Title</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Description or quick info here.
-                  </p>
-                </div>
-              </div>
+              <ShowProfileSavedOpenings id={user.id} />
             </CardContent>
           </Card>
         </div>
