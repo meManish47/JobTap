@@ -83,6 +83,9 @@ export default function OpeningDetailCard({
           <Button
             className="h-8   cursor-pointer w-max sm:my-2"
             variant={"link"}
+            onClick={() =>
+              (window.location.href = `/company/${openingState.companyId}`)
+            }
           >
             <p className="font-medium text-base">
               {openingState.company?.company_name || "Unknown"}
