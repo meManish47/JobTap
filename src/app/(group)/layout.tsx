@@ -35,7 +35,7 @@ export default function Laytout({
   const [user, setUser] = useState<UserType | null>(null);
   useEffect(() => {
     async function getUser() {
-      const res = await fetch("http://localhost:3000/api/current-user");
+      const res = await fetch("/api/current-user");
       const data = await res.json();
       if (data.success) {
         setUser(data.user);
@@ -53,7 +53,7 @@ export default function Laytout({
       >
         <HeaderComponent fromLogin={false} user={user} />
         {children}
-        <Toaster richColors/>
+        <Toaster richColors />
       </UserContext.Provider>
     </div>
   );
