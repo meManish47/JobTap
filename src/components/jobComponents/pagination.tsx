@@ -150,13 +150,13 @@ export default function PaginationComponent({
         <SideBar />
       </div>
       <div className="max-w-5  sticky top-10 block sm:hidden ">
-        <div
-          className=" max-w-8"
-          onClick={() => {
-            setSidebarOpen((prev) => !prev);
-          }}
-        >
-          <VscLayoutSidebarLeft size={24} />
+        <div className=" max-w-8">
+          <VscLayoutSidebarLeft
+            size={24}
+            onClick={() => {
+              setSidebarOpen((prev) => !prev);
+            }}
+          />
           {!sidebarOpen && (
             <div className="min-w-xs  h-screen flex flex-col justify-start">
               <SideBar />
