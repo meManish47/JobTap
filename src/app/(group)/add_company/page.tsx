@@ -1,7 +1,26 @@
 import AddCompanyForm from "@/components/companycomp/addcompany";
 import HeaderComponent from "@/components/header/header";
+import { Button } from "@/components/ui/button";
+import { getUserFromCookies } from "@/helper/helper";
+import Link from "next/link";
 
-export default function AddCompanyPage() {
+export default async function AddCompanyPage() {
+  const user = await getUserFromCookies();
+  if (!user) {
+    return (
+      <div className="h-screen w-screen flex justify-center items-center text-muted-foreground text-lg ">
+        No user. Please login first
+        <Link href={"/login"}>
+          <Button
+            variant={"link"}
+            className="text-lg font-semibold cursor-pointer"
+          >
+            Login
+          </Button>
+        </Link>
+      </div>
+    );
+  }
   return (
     <main className="h-full w-screen flex flex-col ">
       <div className="h-full w-full flex justify-center items-center  mt-4">

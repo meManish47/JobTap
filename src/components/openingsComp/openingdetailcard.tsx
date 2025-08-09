@@ -32,7 +32,19 @@ export default function OpeningDetailCard({
     }
     getApplicationStatus();
   }, [opening]);
-  if (!user) return null;
+  if (!user)
+    return (
+      <div className="h-screen w-screen flex justify-center items-center text-muted-foreground text-lg ">
+        No user. Please login first
+        <Button
+          variant={"link"}
+          onClick={() => (window.location.href = "/login")}
+          className="text-lg font-semibold cursor-pointer"
+        >
+          Login
+        </Button>
+      </div>
+    );
   setTimeout(() => {
     setLoading(false);
   }, 700);
@@ -114,7 +126,7 @@ export default function OpeningDetailCard({
           {user.company.id === openingState.companyId ? (
             <ViewApplicants opening={openingState} />
           ) : (
-            <ApplyButton opening={openingState} hasApplied={hasApplied}/>
+            <ApplyButton opening={openingState} hasApplied={hasApplied} />
           )}
           <EditOptions opening={openingState} handleEdit={handleEdit} />
         </div>
