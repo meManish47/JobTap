@@ -38,7 +38,6 @@ export default function BookmarkComponent({
       toast.error(x.message);
     }
   }
-  console.log(isSave);
   return (
     <div>
       <IconButton

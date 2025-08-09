@@ -15,7 +15,7 @@ import { ImSpinner9 } from "react-icons/im";
 type Props = {
   id: string;
 };
-type ApplicationsWithOpening = application & {
+export type ApplicationsWithOpening = application & {
   openings: openings;
 };
 export default function ProfileShowApplicationsComponent({ id }: Props) {
@@ -38,6 +38,12 @@ export default function ProfileShowApplicationsComponent({ id }: Props) {
     }
     getApplications();
   }, []);
+  function handleApplicationAfterDelete(
+    applications: ApplicationsWithOpening,
+    id: string
+  ) {
+    setApplications((prev) => prev.filter((app) => app.id !== id));
+  }
   if (loading) {
     return (
       <div className="h-full flex flex-col justify-center items-center">
@@ -45,8 +51,6 @@ export default function ProfileShowApplicationsComponent({ id }: Props) {
       </div>
     );
   }
-
-  const len = applications.length;
   if (!applications.length) {
     return (
       <div className="text-sm text-muted-foreground p-4">
@@ -59,7 +63,10 @@ export default function ProfileShowApplicationsComponent({ id }: Props) {
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {applications.map((application) => (
-          <Card key={application.id} className="flex flex-col justify-between">
+          <Card
+            key={application.id}
+            className="flex flex-col justify-between shadow-[0px_0px_3px_rgb(255,255,255,0.1)]"
+          >
             <CardHeader>
               <CardTitle className="text-base sm:text-lg">
                 {application.openings!.title}
@@ -77,6 +84,7 @@ export default function ProfileShowApplicationsComponent({ id }: Props) {
                   <DeleteApplication
                     id={application.id}
                     userId={application.userId}
+                    handleApplicationAfterDelete={handleApplicationAfterDelete}
                   />
                 </div>
               </div>

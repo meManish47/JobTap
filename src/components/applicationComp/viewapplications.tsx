@@ -13,6 +13,7 @@ import { Card, CardAction, CardHeader } from "../ui/card";
 
 import { ImSpinner9 } from "react-icons/im";
 import DeleteApplication from "./deleteapplication";
+import { ApplicationsWithOpening } from "../profileComp/profileShowApplication";
 type Applicanttype = {
   id: string;
   userId: string;
@@ -59,6 +60,15 @@ export default function ViewApplicants({ opening }: OpeningType) {
     getApplicants();
   }, []);
   //   console.log("papldajfhkuahrhfjkf", applicants);
+  function handleApplicationAfterDelete(
+    applications: ApplicationsWithOpening,
+    id: string
+  ) {
+    setApplicants((prev) => prev.filter((app) => app.id !== id));
+  }
+  function updateApplicantsAfterApplying(applicant:ApplicationsWithOpening,id:string){
+
+  }
   return (
     <Dialog>
       <DialogTrigger>
@@ -92,7 +102,11 @@ export default function ViewApplicants({ opening }: OpeningType) {
                     <CardHeader>
                       {applicant?.user?.email}
                       <CardAction className="h-10">
-                        <DeleteApplication id={applicant.id} userId={applicant.userId} />
+                        <DeleteApplication
+                          id={applicant.id}
+                          userId={applicant.userId}
+                          handleApplicationAfterDelete={handleApplicationAfterDelete}
+                        />
                       </CardAction>
                     </CardHeader>
                   </Card>

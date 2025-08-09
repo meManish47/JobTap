@@ -1,13 +1,5 @@
 "use client";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { openings, saved } from "../../../generated/prisma";
 import { Button } from "../ui/button";
@@ -32,7 +24,6 @@ export default function ShowProfileSavedOpenings({ id }: { id: string }) {
     }
     getSaved();
   }, []);
-  console.log(saved);
   if (loading) {
     return (
       <div className="h-full flex flex-col justify-center items-center">
@@ -40,8 +31,6 @@ export default function ShowProfileSavedOpenings({ id }: { id: string }) {
       </div>
     );
   }
-
-  const len = saved.length;
   if (!saved.length) {
     return (
       <div className="text-sm text-muted-foreground p-4">
@@ -53,7 +42,10 @@ export default function ShowProfileSavedOpenings({ id }: { id: string }) {
     <div className="space-y-4">
       <div className="flex flex-col gap-2">
         {saved.map((saved) => (
-          <Card key={saved.id} className="h-37">
+          <Card
+            key={saved.id}
+            className="h-37 shadow-[0px_0px_3px_rgb(255,255,255,0.1)]"
+          >
             <CardHeader>
               <CardTitle className="text-base sm:text-lg">
                 {saved.opening.title}
@@ -67,7 +59,13 @@ export default function ShowProfileSavedOpenings({ id }: { id: string }) {
                 <div>
                   <strong>Salary:</strong> ₹{saved.opening.salary}
                 </div>
-                <Button variant={"link"} className="cursor-pointer mb-10" onClick={()=>window.location.href=`/opening/${saved.openingId}`}>
+                <Button
+                  variant={"link"}
+                  className="cursor-pointer mb-10"
+                  onClick={() =>
+                    (window.location.href = `/opening/${saved.openingId}`)
+                  }
+                >
                   View
                 </Button>
               </div>

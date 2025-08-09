@@ -48,11 +48,13 @@ export async function DELETE(
 ) {
   const { id } = await params;
   try {
-    await prismaClient.application.delete({
+    const deletedApplication = await prismaClient.application.delete({
       where: { id },
+      include: { openings: true },
     });
     return NextResponse.json({
       success: true,
+      application: deletedApplication,
     });
   } catch (err) {
     return NextResponse.json({

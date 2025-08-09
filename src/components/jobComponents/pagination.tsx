@@ -11,12 +11,13 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import JobCard from "./jobcard";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import SideBar from "../sidebarComponent/SideBar";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { VscLayoutSidebarLeft } from "react-icons/vsc";
 import { jobs } from "../../../generated/prisma";
+import LoaderComponent from "../sidebarComponent/loadingcomp";
 export default function PaginationComponent({
   search,
 }: {
@@ -32,10 +33,10 @@ export default function PaginationComponent({
   const jobsPerPage = 12;
   const router = useRouter();
   useEffect(() => {
+    setIsLoading(true);
     async function fetchJobs() {
-      // const result = await getAllJobsFromDb(searchVal, jobtype, remote);
       const result = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/jobs/search?q=${searchVal}&jt=${jobtype}&rem=${remote}`
+        `/api/jobs/search?q=${searchVal}&jt=${jobtype}&rem=${remote}`
       );
       const data = await result.json();
       setJobs(data.jobs || []);
@@ -144,10 +145,14 @@ export default function PaginationComponent({
       </div>
     );
   }
+  function handleGo(open: boolean) {
+    setSidebarOpen(open);
+    setIsLoading(true);
+  }
   return (
     <div className="h-full w-full  flex  items-start gap-6 p-4 mt-2 relative mb-20">
       <div className="w-80   sticky top-10 hidden sm:block">
-        <SideBar />
+        <SideBar handleGo={handleGo} />
       </div>
       <div className="max-w-5  sticky top-10 block sm:hidden ">
         <div className=" max-w-8">
@@ -159,7 +164,7 @@ export default function PaginationComponent({
           />
           {!sidebarOpen && (
             <div className="min-w-xs  h-screen flex flex-col justify-start">
-              <SideBar />
+              <SideBar handleGo={handleGo} />
             </div>
           )}
         </div>

@@ -13,7 +13,11 @@ import { Label } from "../ui/label";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "../ui/button";
-export default function SideBar() {
+export default function SideBar({
+  handleGo,
+}: {
+  handleGo: (open: boolean) => void;
+}) {
   const searchParams = useSearchParams();
   const q = searchParams.get("q");
   const jt = searchParams.get("jt");
@@ -27,6 +31,7 @@ export default function SideBar() {
   let url = `/?q=${q}&jt=${jobtype}&rem=${remote}`;
   // console.log(url);
   function handleClick() {
+    handleGo(true);
     router.push(url);
   }
   return (

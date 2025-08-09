@@ -2,13 +2,17 @@ import { UserContext } from "@/app/(group)/layout";
 import { useContext } from "react";
 import { MdDelete } from "react-icons/md";
 import { toast } from "sonner";
+import { application } from "../../../generated/prisma";
+import { ApplicationsWithOpening } from "../profileComp/profileShowApplication";
 
 export default function DeleteApplication({
   userId,
   id,
+  handleApplicationAfterDelete,
 }: {
   id: string;
   userId: string;
+  handleApplicationAfterDelete: (applications: ApplicationsWithOpening,id:string) => void;
 }) {
   const context = useContext(UserContext);
   const user = context?.user;
@@ -22,7 +26,7 @@ export default function DeleteApplication({
     const x = await res.json();
     if (x.success) {
       toast.success("Deleted!");
-      window.location.reload();
+      handleApplicationAfterDelete(x.application,id);
     } else {
       toast.error("Something went wrong!");
     }

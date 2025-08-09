@@ -40,7 +40,7 @@ export default function ShowOpenings() {
   }, []);
   function handleEdit(
     updatedOpening: OpeningsTypeWithCmpanyNSaved,
-    id: string,
+    id: string
   ) {
     setOpenings((prev) =>
       prev.map((item) =>
@@ -67,7 +67,9 @@ export default function ShowOpenings() {
           className="mt-8 max-w-[80%] ms-10 w-80 max-h-80 flex flex-col justify-between "
         >
           <CardHeader>
-            <CardTitle>{opening.title}</CardTitle>
+            <CardTitle className="text-base font-bold sm:text-lg line-clamp-1 ">
+              {opening.title}
+            </CardTitle>
             <CardDescription>{opening.location}</CardDescription>
             <CardAction className="flex flex-col gap-1 items-end">
               <Badge
@@ -76,7 +78,7 @@ export default function ShowOpenings() {
               >
                 {opening.employment_type}
               </Badge>
-              <EditOptions opening={opening}  handleEdit={handleEdit}/>
+              <EditOptions opening={opening} handleEdit={handleEdit} />
             </CardAction>
           </CardHeader>
           <CardContent className="line-clamp-4 text-sm  md:text-base">

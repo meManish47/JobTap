@@ -1,5 +1,7 @@
 import PaginationComponent from "@/components/jobComponents/pagination";
+import LoaderComponent from "@/components/sidebarComponent/loadingcomp";
 import StarBack from "@/components/starbackground";
+import { Suspense } from "react";
 export default async function Home({
   searchParams,
 }: {

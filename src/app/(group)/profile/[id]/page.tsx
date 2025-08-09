@@ -19,6 +19,7 @@ type CompanyWithOwner = {
   company: company;
   owner: User;
 };
+
 export default function ProfilePage() {
   const context = useContext(UserContext);
   const user = context?.user;

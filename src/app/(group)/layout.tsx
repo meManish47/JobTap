@@ -1,10 +1,9 @@
 "use client";
-import { AppSidebar } from "@/components/app-sidebar";
 import HeaderComponent from "@/components/header/header";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { createContext, useEffect, useState } from "react";
 import { Toaster } from "sonner";
-import { company, saved, User } from "../../../generated/prisma";
+import { application, company, saved, User } from "../../../generated/prisma";
 type UserType = User & {
   company: {
     id: string;
@@ -18,12 +17,21 @@ type UserType = User & {
     userId: string;
     openingId: string;
   };
+  application: application[];
 };
 
 export type UserContextType = {
-  user: (UserType & { company: company; saved: saved }) | null;
+  user:
+    | (UserType & { company: company; saved: saved; application: application[] })
+    | null;
   setUser: (
-    user: (UserType & { company: company; saved: saved }) | null
+    user:
+      | (UserType & {
+          company: company;
+          saved: saved;
+          application: application[];
+        })
+      | null
   ) => void;
 };
 export const UserContext = createContext<UserContextType | null>(null);
@@ -44,7 +52,10 @@ export default function Laytout({
     getUser();
   }, []);
   return (
-    <div className="overflow-x-hidden h-screen w-screen" suppressHydrationWarning>
+    <div
+      className="overflow-x-hidden h-screen w-screen"
+      suppressHydrationWarning
+    >
       <UserContext.Provider
         value={{
           user,
