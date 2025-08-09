@@ -67,7 +67,7 @@ export default function OpeningDetailCard({
   }
 
   return (
-    <Card className="h-[70%] w-[90%] px-6 overflow-hidden flex flex-col justify-between min-w-xs ms-0 sm:ms-10">
+    <Card className="h-[80%] sm:h-[70%] w-[90%] px-4 sm:px-10 overflow-hidden flex flex-col justify-between min-w-xs ms-0 sm:ms-10">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-blue-700 w-full flex justify-between">
