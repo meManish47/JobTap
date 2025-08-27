@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import EditOptions from "./editoptions";
@@ -17,11 +17,14 @@ import { FaArrowRight } from "react-icons/fa";
 import { openings, company, saved } from "../../../generated/prisma";
 import { ImSpinner9 } from "react-icons/im";
 import BookmarkComponent from "./bookmark";
+import { UserContext } from "@/app/(group)/layout";
 export type OpeningsTypeWithCmpanyNSaved = openings & {
   company: company;
   saved: saved[];
 };
 export default function ShowOpenings() {
+  const context = useContext(UserContext);
+  const user = context?.user;
   const [openings, setOpenings] = useState<OpeningsTypeWithCmpanyNSaved[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -102,7 +105,7 @@ export default function ShowOpenings() {
             <div className="flex flex-col items-center">
               <BookmarkComponent
                 opening={opening}
-                isSaved={Boolean(opening.saved.length)}
+                isSaved={opening.saved.some((item) => item.userId === user?.id)}
               />
               <Link href={`/opening/${opening.id}`}>
                 <Button className="w-full h-full flex items-center justify-center text-blue-600 hover:text-blue-800 transition-colors duration-200 cursor-pointer">

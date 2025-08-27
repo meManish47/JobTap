@@ -119,11 +119,11 @@ export default function OpeningDetailCard({
             )}
           </Button>
           <p className="text-xs text-muted-foreground mt-1">
-            Opening ID: {openingState.id}
+            Opening ID: {openingState?.id}
           </p>
         </div>
         <div className="flex justify-between gap-2 items-center w-full sm:flex-col sm:w-max">
-          {user.company.id === openingState.companyId ? (
+          {user?.company?.id === openingState?.companyId ? (
             <ViewApplicants opening={openingState} />
           ) : (
             <ApplyButton opening={openingState} hasApplied={hasApplied} />
